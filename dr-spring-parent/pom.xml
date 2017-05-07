@@ -23,6 +23,18 @@
 		<connection>scm:git:git://github.com/wgx731/dr-spring.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:wgx731/dr-spring.git</developerConnection>
 	</scm>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<!-- Generally Useful Test Dependencies -->
 		<dependency>

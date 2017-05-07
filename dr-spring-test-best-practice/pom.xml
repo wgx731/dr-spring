@@ -7,25 +7,13 @@
 		<version>0.9.9</version>
 		<relativePath>../dr-spring-parent</relativePath>
 	</parent>
-	<artifactId>dr-spring-spring-boot-sample</artifactId>
-	<name>Dr. Spring Spring Boot Sample</name>
-	<description>Sample project from spring boot</description>
-	<url>https://github.com/wgx731/dr-spring/dr-spring-spring-boot-sample</url>
+	<artifactId>dr-spring-test-best-practice</artifactId>
+	<name>Dr. Spring Test Best Practice</name>
+	<description>Demo project on how to write test with Spring</description>
+	<url>https://github.com/wgx731/dr-spring/dr-spring-test-best-practice</url>
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>1.5.3.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<!-- Compile -->
 		<dependency>

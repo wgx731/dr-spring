@@ -79,7 +79,7 @@
 			<!-- Dr Spring -->
 			<dependency>
 				<groupId>com.github.wgx731</groupId>
-				<artifactId>dr-spring-spring-boot-sample</artifactId>
+				<artifactId>dr-spring-spring-test-best-practice</artifactId>
 				<version>0.9.9</version>
 			</dependency>
 

@@ -39,6 +39,6 @@
 	<modules>
 		<module>dr-spring-dependencies</module>
 		<module>dr-spring-parent</module>
-		<module>dr-spring-spring-boot-sample</module>
+		<module>dr-spring-test-best-practice</module>
 	</modules>
 </project>
