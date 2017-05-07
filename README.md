@@ -7,6 +7,16 @@ Dr. Spring
 
 ![Image Of Dr. Mario](https://upload.wikimedia.org/wikipedia/en/f/f8/Dr._Mario_box_art.jpg)
 
+## User Guide
+
+### Run all projects
+
+`./mvnw clean package site`
+
+### Run single project
+
+`./mvnw -pl <project-name> clean package site`
+
 ## Contributing
 
 [Pull Requests](https://github.com/wgx731/dr-spring/pulls) are most welcome!
