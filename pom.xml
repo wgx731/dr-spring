@@ -40,5 +40,6 @@
 		<module>dr-spring-dependencies</module>
 		<module>dr-spring-parent</module>
 		<module>dr-spring-test-best-practice</module>
+		<module>dr-spring-data-rest</module>
 	</modules>
 </project>
