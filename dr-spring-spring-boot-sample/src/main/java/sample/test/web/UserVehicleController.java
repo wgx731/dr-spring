@@ -49,12 +49,12 @@ public class UserVehicleController {
 	}
 
 	@GetMapping(path = "/{username}/vehicle", produces = MediaType.APPLICATION_JSON_VALUE)
-	public VehicleDetails VehicleDetailsJson(@PathVariable String username) {
+	public VehicleDetails vehicleDetailsJson(@PathVariable String username) {
 		return this.userVehicleService.getVehicleDetails(username);
 	}
 
 	@GetMapping(path = "/{username}/vehicle.html", produces = MediaType.TEXT_HTML_VALUE)
-	public String VehicleDetailsHtml(@PathVariable String username) {
+	public String vehicleDetailsHtml(@PathVariable String username) {
 		VehicleDetails details = this.userVehicleService.getVehicleDetails(username);
 		String makeAndModel = details.getMake() + " " + details.getModel();
 		return "<html><body><h1>" + makeAndModel + "</h1></body></html>";

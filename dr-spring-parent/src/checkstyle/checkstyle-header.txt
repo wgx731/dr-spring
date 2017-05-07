@@ -1,0 +1,4 @@
+^\Q/*\E$
+^\Q * Copyright \E2012-20\d\d\Q the original author or authors.\E$
+^\Q *\E$
+^.*$

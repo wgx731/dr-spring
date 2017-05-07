@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.wgx731</groupId>
-	<artifactId>dr-spring</artifactId>
+	<artifactId>dr-spring-build</artifactId>
 	<version>0.9.9</version>
 	<packaging>pom</packaging>
-	<name>Dr. Spring</name>
-	<description>Dr. Spring Playground - practice to learn spring</description>
+	<name>Dr. Spring Build</name>
+	<description>Dr. Spring Playground - practice and learn spring</description>
 	<url>https://github.com/wgx731/dr-spring</url>
 	<licenses>
 		<license>
@@ -31,75 +31,14 @@
 		<!-- Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- Dependency-->
-		<spring-boot.version>1.5.3.RELEASE</spring-boot.version>
-		<!-- Plugin -->
-		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
-		<maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-		<maven-replacer-plugin.version>1.5.3</maven-replacer-plugin.version>
-		<findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
 		<!-- Dir -->
 		<main.basedir>${basedir}</main.basedir>
 		<!-- Java -->
 		<java.version>1.8</java.version>
 	</properties>
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>com.google.code.maven-replacer-plugin</groupId>
-					<artifactId>replacer</artifactId>
-					<version>${maven-replacer-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${maven-checkstyle-plugin.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.github.wgx731</groupId>
-							<artifactId>dr-spring-build-tools</artifactId>
-							<version>1.0</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${maven-checkstyle-plugin.version}</version>
-				<configuration>
-					<configLocation>dr-spring/checkstyle.xml</configLocation>
-					<headerLocation>dr-spring/LICENSE.txt</headerLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs-maven-plugin.version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
 	<modules>
 		<module>dr-spring-dependencies</module>
-		<module>dr-spring-build-tools</module>
-		<module>dr-spring-simple</module>
+		<module>dr-spring-parent</module>
+		<module>dr-spring-spring-boot-sample</module>
 	</modules>
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
 </project>

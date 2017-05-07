@@ -1,7 +1,0 @@
-<project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.wgx731</groupId>
-	<artifactId>dr-spring-build-tools</artifactId>
-	<version>1.0</version>
-	<name>Build Tools</name>
-</project>

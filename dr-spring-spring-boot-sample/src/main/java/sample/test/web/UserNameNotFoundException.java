@@ -19,10 +19,15 @@ package sample.test.web;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * A not found exception with username information.
+ *
+ * @author Phillip Webb
+ */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNameNotFoundException extends RuntimeException {
 
-	private String username;
+	private final String username;
 
 	public UserNameNotFoundException(String username) {
 		this.username = username;
