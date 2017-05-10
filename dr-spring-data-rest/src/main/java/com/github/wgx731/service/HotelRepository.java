@@ -7,7 +7,7 @@ package com.github.wgx731.service;
 import com.github.wgx731.domain.City;
 import com.github.wgx731.domain.Hotel;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * @author Wang Eric GaoXiang
  */
 @RepositoryRestResource(collectionResourceRel = "hotels", path = "hotels")
-interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
+interface HotelRepository extends JpaRepository<Hotel, Long> {
 
 	Hotel findByCityAndName(City city, String name);
 
