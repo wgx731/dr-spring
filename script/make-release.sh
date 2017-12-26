@@ -1,5 +1,8 @@
 #!/bin/bash
 
+RED='\033[0;31m'
+NC='\033[0m'
+
 function setAppVer {
     for i in `find . -name "application.properties"`; do
         sed -i "" "s/^info.app.version=.*/info.app.version=$1/g" $i
@@ -9,8 +12,9 @@ function setAppVer {
 
 newVersion=$1
 nextVersion=$2
+newBranch=$3
 
-echo Setting new version $newVersion
+echo -e "${RED}Setting release version $newVersion${NC}"
 
 git checkout master
 git pull
@@ -23,10 +27,10 @@ git commit -m "set release version $newVersion :octopus:"
 git push
 git tag v$newVersion
 git push origin v$newVersion
-git checkout -b $newVersion.x
-git push --set-upstream origin $newVersion.x
+git checkout -b $newBranch
+git push --set-upstream origin $newBranch
 
-echo Setting next version $nextVersion
+echo -e "${RED}Setting snapshot version $nextVersion${NC}"
 
 git checkout master
 ./mvnw versions:set -DnewVersion=$nextVersion
@@ -40,7 +44,7 @@ git pull
 git merge master
 git push
 
-echo Cleaning Up
+echo -e "${RED}Cleaning Up${NC}"
 
 rm -rf pom.xml.*
 

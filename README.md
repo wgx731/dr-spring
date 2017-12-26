@@ -11,11 +11,15 @@ Dr. Spring
 
 ### Run all projects
 
-`./mvnw clean package site`
+`./mvnw clean package`
 
 ### Run single project
 
-`./mvnw -pl <project-name> clean package site`
+`./mvnw -pl <project-name> clean package`
+
+### Make release
+
+`./script/make-release.sh 1.0.0 1.1.0-SNAPSHOT 1.0.x`
 
 ## Contributing
 
