@@ -1,45 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.M7</version>
+	</parent>
+
 	<groupId>com.github.wgx731</groupId>
-	<artifactId>dr-spring-build</artifactId>
+	<artifactId>dr-spring</artifactId>
 	<version>0.9.9</version>
 	<packaging>pom</packaging>
-	<name>Dr. Spring Build</name>
-	<description>Dr. Spring Playground - practice and learn spring</description>
+
+	<name>Dr. Spring</name>
+	<description>Dr. Spring Playground - practice and learn Spring Framework</description>
+
 	<url>https://github.com/wgx731/dr-spring</url>
+
 	<licenses>
 		<license>
 			<name>MIT</name>
 			<url>https://github.com/wgx731/dr-spring/blob/master/LICENSE</url>
 		</license>
 	</licenses>
+
 	<scm>
 		<url>https://github.com/wgx731/dr-spring</url>
 	</scm>
+
 	<developers>
 		<developer>
 			<id>wgx731</id>
-			<name>Wang Eric GaoXiang</name>
-			<email>wgx731 at gmail.com</email>
+			<name>Wang Eric Gaoxiang</name>
+			<email>wgx731@gmail.com</email>
 			<roles>
 				<role>Project Owner</role>
 			</roles>
 		</developer>
 	</developers>
+
 	<properties>
 		<!-- Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Dir -->
 		<main.basedir>${basedir}</main.basedir>
-		<!-- Java -->
-		<java.version>1.8</java.version>
+
+		<java.version>1.9</java.version>
+		<dr-spring.version>0.9.9</dr-spring.version>
+
+		<assertj.version>3.8.0</assertj.version>
+		<jackson.version>2.9.3</jackson.version>
+		<!-- 1.16.18 has bug with intellij-->
+		<lombok.version>1.16.16</lombok.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>central-core</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-core</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central-plugin</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<!-- TODO: remove this when jacoco 0.7.10 released -->
+		<pluginRepository>
+			<id>jacoco-plugin</id>
+			<name>Sonatype Plugin Snapshot</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-plugin</id>
+			<name>Spring Milestone</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<modules>
-		<module>dr-spring-dependencies</module>
-		<module>dr-spring-parent</module>
-		<module>dr-spring-test-best-practice</module>
-		<module>dr-spring-data-rest</module>
+		<module>common</module>
+		<module>web</module>
 	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.10-SNAPSHOT</version>
+					<executions>
+						<execution>
+							<id>jacoco-prepare-agent-in-validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>jacoco-check-in-verify</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<rules/>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<compilerArgs>
+							<arg>-Xlint:all</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-properties</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-yaml</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-csv</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-xml</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>${assertj.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.github.wgx731</groupId>
+				<artifactId>common</artifactId>
+				<version>${dr-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.wgx731</groupId>
+				<artifactId>web</artifactId>
+				<version>${dr-spring.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 </project>
