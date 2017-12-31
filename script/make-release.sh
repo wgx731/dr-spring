@@ -46,5 +46,5 @@ git push
 
 echo -e "${RED}Cleaning Up${NC}"
 
-rm -rf pom.xml.*
+rm -rf pom.xml.* */pom.xml.*
 

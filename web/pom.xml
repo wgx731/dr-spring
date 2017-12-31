@@ -28,7 +28,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
 		<dependency>
@@ -59,7 +59,7 @@
 
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
-			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<artifactId>spring-restdocs-webtestclient</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -85,7 +85,7 @@
 						<configuration>
 							<sourceDirectory>${basedir}/src/main/resources/asciidoc</sourceDirectory>
 							<sourceDocumentName>index.adoc</sourceDocumentName>
-							<backend>html</backend>
+							<backend>html5</backend>
 							<attributes>
 								<snippets>${project.build.directory}/snippets</snippets>
 							</attributes>

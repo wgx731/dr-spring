@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SupplierUUIDService implements UUIDService {
 
-	private UUIDStringSupplier supplier = new UUIDStringSupplier();
+  private UUIDStringSupplier supplier = new UUIDStringSupplier();
 
-	@Override
-	public String getUUID() {
-		return supplier.get();
-	}
+  @Override
+  public String getUUID() {
+    return supplier.get();
+  }
 
 }

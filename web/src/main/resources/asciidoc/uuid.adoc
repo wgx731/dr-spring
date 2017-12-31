@@ -1,0 +1,55 @@
+=== JSON response
+
+- curl request:
+include::{snippets}/uuid_json/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_json/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_json/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_json/http-response.adoc[]
+
+=== XML response
+
+- curl request:
+include::{snippets}/uuid_xml/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_xml/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_xml/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_xml/http-response.adoc[]
+
+=== Properties response
+
+- curl request:
+include::{snippets}/uuid_properties/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_properties/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_properties/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_properties/http-response.adoc[]
+
+=== CSV response
+
+- curl request:
+include::{snippets}/uuid_csv/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_csv/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_csv/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_csv/http-response.adoc[]

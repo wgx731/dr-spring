@@ -10,10 +10,10 @@ import lombok.ToString;
 @ToString
 public class UUIDResponse {
 
-	@JsonProperty("uuid")
-	private String uuid;
+  @JsonProperty("uuid")
+  private String uuid;
 
-	@JsonProperty("count")
-	private int count;
+  @JsonProperty("count")
+  private int count;
 
 }

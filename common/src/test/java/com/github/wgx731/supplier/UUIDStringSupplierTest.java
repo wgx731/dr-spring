@@ -8,23 +8,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UUIDStringSupplierTest {
 
-	private UUIDStringSupplier supplier;
+  private UUIDStringSupplier supplier;
 
-	@Before
-	public void setUp() {
-		supplier = new UUIDStringSupplier();
-	}
+  @Before
+  public void setUp() {
+    supplier = new UUIDStringSupplier();
+  }
 
-	@After
-	public void tearDown() {
-		supplier = null;
-	}
+  @After
+  public void tearDown() {
+    supplier = null;
+  }
 
-	@Test
-	public void testSupplier() {
-		String target = supplier.get();
-		assertThat(target).hasSize(36);
-		assertThat(target).matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}" +
-				"-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
-	}
+  @Test
+  public void testSupplier() {
+    String target = supplier.get();
+    assertThat(target).hasSize(36);
+    assertThat(target).matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}"
+        + "-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}");
+  }
 }

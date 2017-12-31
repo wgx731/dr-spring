@@ -1,0 +1,10 @@
+= Dr. Spring Web REST Doc
+Wang Eric GaoXiang
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+== UUID REST Doc
+
+include::uuid.adoc[]
+
