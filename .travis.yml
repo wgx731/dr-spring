@@ -1,3 +1,8 @@
+branches:
+  only:
+  - master
+  - dev
+
 language: java
 
 jdk: oraclejdk9
@@ -5,5 +10,3 @@ jdk: oraclejdk9
 sudo: false # faster builds
 
 script: "./mvnw package -Dmaven.javadoc.skip=true -B -V"
-
-after_success: bash <(curl -s https://codecov.io/bash)
