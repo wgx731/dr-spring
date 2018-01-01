@@ -1,6 +1,8 @@
 Dr. Spring
 ========================
 
+[![Build Status](https://travis-ci.org/wgx731/dr-spring.svg?branch=master)](https://travis-ci.org/wgx731/dr-spring)
+
 ## Idea Source
 
 [Dr. Mario](https://en.wikipedia.org/wiki/Dr._Mario) as [Spring](https://spring.io) playground :video_game:
