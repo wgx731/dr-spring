@@ -19,6 +19,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
 @RunWith(SpringRunner.class)
+@SuppressWarnings("checkstyle:JavadocMethod")
 public class UUIDControllerTest {
 
   static final String TEST_UUID = "TEST-UUID";
