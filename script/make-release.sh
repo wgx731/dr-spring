@@ -27,8 +27,10 @@ git commit -m "set release version $newVersion :octopus:"
 git push
 git tag v$newVersion
 git push origin v$newVersion
-git checkout -b $newBranch
-git push --set-upstream origin $newBranch
+if [ "$newBranch" != "skip" ]; then
+    git checkout -b $newBranch
+    git push --set-upstream origin $newBranch
+fi
 
 echo -e "${RED}Setting snapshot version $nextVersion${NC}"
 
