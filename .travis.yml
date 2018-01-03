@@ -12,4 +12,5 @@ sudo: false # faster builds
 script: "./mvnw clean package -Dmaven.javadoc.skip=true -B -V"
 
 after_success:
-  - "./cat ./web/target/site/jacoco/jacoco.csv"
+  - "cat $TRAVIS_BUILD_DIR/common/target/site/jacoco/jacoco.csv"
+  - "cat $TRAVIS_BUILD_DIR/web/target/site/jacoco/jacoco.csv"
