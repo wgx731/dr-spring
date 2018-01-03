@@ -9,4 +9,7 @@ jdk: oraclejdk9
 
 sudo: false # faster builds
 
-script: "./mvnw package -Dmaven.javadoc.skip=true -B -V"
+script: "./mvnw clean package -Dmaven.javadoc.skip=true -B -V"
+
+after_success:
+  - "./cat ./web/target/site/jacoco/jacoco.csv"
