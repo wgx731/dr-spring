@@ -1,0 +1,13 @@
+FROM openjdk:9-jre
+MAINTAINER Wang Eric GaoXiang <wgx731@gmail.com>
+
+ARG JAR_FILE
+ADD target/${JAR_FILE} /opt/webapp/app.jar
+
+# Run the image as a non-root user
+RUN useradd -ms /bin/bash springuser
+USER springuser
+
+WORKDIR /opt/webapp
+
+CMD java -Djava.security.egd=file:/dev/./urandom -jar app.jar
