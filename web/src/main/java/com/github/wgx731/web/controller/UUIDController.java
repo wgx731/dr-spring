@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -48,6 +47,7 @@ public class UUIDController {
 
   /**
    * UUID JSON response.
+   *
    * @return JSON response
    * @throws JsonProcessingException error converting to JSON
    */
@@ -61,6 +61,7 @@ public class UUIDController {
 
   /**
    * UUID XML response.
+   *
    * @return XML response
    * @throws JsonProcessingException error converting to XML
    */
@@ -74,6 +75,7 @@ public class UUIDController {
 
   /**
    * UUID Property response.
+   *
    * @return Property response
    * @throws JsonProcessingException error converting to Property
    */
@@ -89,6 +91,7 @@ public class UUIDController {
 
   /**
    * UUID CSV response.
+   *
    * @return CSV response
    * @throws JsonProcessingException error converting to CSV
    */
