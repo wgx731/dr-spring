@@ -26,6 +26,20 @@ include::{snippets}/uuid_xml/http-request.adoc[]
 - HTTP response:
 include::{snippets}/uuid_xml/http-response.adoc[]
 
+=== Yaml response
+
+- curl request:
+include::{snippets}/uuid_yaml/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_yaml/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_yaml/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_yaml/http-response.adoc[]
+
 === Properties response
 
 - curl request:

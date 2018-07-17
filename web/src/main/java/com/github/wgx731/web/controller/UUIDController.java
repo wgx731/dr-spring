@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsMapper;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.wgx731.web.response.UUIDResponse;
 import com.github.wgx731.web.service.UUIDService;
 import lombok.NonNull;
@@ -29,6 +30,7 @@ public class UUIDController {
 
   static final String JSON_CONTENT_TYPE = "application/json";
   static final String XML_CONTENT_TYPE = "application/xml";
+  static final String YAML_CONTENT_TYPE = "application/yaml";
   static final String PROPERTIES_CONTENT_TYPE = "text/plain";
   static final String CSV_CONTENT_TYPE = "text/csv";
 
@@ -41,6 +43,8 @@ public class UUIDController {
   private ObjectMapper propsMapper = new JavaPropsMapper();
 
   private ObjectMapper csvMapper = new CsvMapper();
+
+  private ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
   @NonNull
   private UUIDService service;
@@ -74,6 +78,20 @@ public class UUIDController {
   }
 
   /**
+   * UUID Yaml response.
+   *
+   * @return Yaml response
+   * @throws JsonProcessingException error converting to Yaml
+   */
+  @GetMapping(
+      value = BASE_PATH + ".yaml",
+      produces = YAML_CONTENT_TYPE
+  )
+  public ResponseEntity getUUIDYaml() throws JsonProcessingException {
+    return ResponseEntity.ok(yamlMapper.writeValueAsString(getUUIDResponse()));
+  }
+
+  /**
    * UUID Property response.
    *
    * @return Property response
@@ -104,7 +122,6 @@ public class UUIDController {
         .writerWithSchemaFor(UUIDResponse.class)
         .writeValueAsString(getUUIDResponse()));
   }
-
 
   private UUIDResponse getUUIDResponse() {
     return UUIDResponse.builder()

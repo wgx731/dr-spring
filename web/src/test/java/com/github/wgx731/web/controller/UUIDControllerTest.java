@@ -77,6 +77,17 @@ public class UUIDControllerTest {
   }
 
   @Test
+  public void getUUIDYaml() throws Exception {
+    ResponseEntity responseEntity = controller.getUUIDYaml();
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(responseEntity.getBody().toString()).contains(TEST_UUID);
+    Mockito.when(service.getUUID()).thenReturn(SAMPLE_UUID);
+    this.webTestClient.get().uri(UUIDController.BASE_PATH + ".yaml").exchange()
+        .expectStatus().isOk().expectBody()
+        .consumeWith(document("uuid_yaml"));
+  }
+
+  @Test
   public void getUUIDProperties() throws Exception {
     ResponseEntity responseEntity = controller.getUUIDProperties();
     assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
