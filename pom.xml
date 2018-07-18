@@ -52,8 +52,9 @@
     <dr-spring.version>1.1.2-SNAPSHOT</dr-spring.version>
 
     <assertj.version>3.8.0</assertj.version>
-    <jackson.version>2.9.3</jackson.version>
+    <jackson.version>2.9.6</jackson.version>
     <lombok.version>1.18.0</lombok.version>
+    <woodstox.version>5.1.0</woodstox.version>
   </properties>
 
   <repositories>
@@ -188,6 +189,7 @@
           <executions>
             <execution>
               <id>dockerfile-default</id>
+              <phase>package</phase>
               <goals>
                 <goal>build</goal>
               </goals>
@@ -208,7 +210,7 @@
           <executions>
             <execution>
               <id>generate-docs</id>
-              <phase>prepare-package</phase>
+              <phase>package</phase>
               <goals>
                 <goal>process-asciidoc</goal>
               </goals>
@@ -269,9 +271,34 @@
         <version>${jackson.version}</version>
       </dependency>
       <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-avro</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-protobuf</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-cbor</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-ion</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.woodstox</groupId>
+        <artifactId>woodstox-core</artifactId>
+        <version>${woodstox.version}</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>

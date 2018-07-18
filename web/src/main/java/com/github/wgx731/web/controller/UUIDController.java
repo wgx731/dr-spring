@@ -1,10 +1,19 @@
 package com.github.wgx731.web.controller;
 
+import java.io.IOException;
+import java.util.Base64;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.javaprop.JavaPropsMapper;
+import com.fasterxml.jackson.dataformat.avro.AvroFactory;
+import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
+import com.fasterxml.jackson.dataformat.csv.CsvFactory;
+import com.fasterxml.jackson.dataformat.ion.IonFactory;
+import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
+import com.fasterxml.jackson.dataformat.protobuf.ProtobufFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.wgx731.web.response.UUIDResponse;
@@ -28,26 +37,70 @@ public class UUIDController {
   public static final String BASE_PATH = "/api/uuid";
   public static final String SEPARATOR = "<-===->";
 
+  static final String PROPERTIES_CONTENT_TYPE = "text/plain";
+  static final String CSV_CONTENT_TYPE = "text/csv";
   static final String JSON_CONTENT_TYPE = "application/json";
   static final String XML_CONTENT_TYPE = "application/xml";
   static final String YAML_CONTENT_TYPE = "application/yaml";
-  static final String PROPERTIES_CONTENT_TYPE = "text/plain";
-  static final String CSV_CONTENT_TYPE = "text/csv";
+  static final String AVRO_CONTENT_TYPE = "text/avro";
+  static final String ION_CONTENT_TYPE = "text/ion";
+  static final String CBOR_CONTENT_TYPE = "text/cbor";
+  static final String PROTOBUF_CONTENT_TYPE = "text/protobuf";
 
-  private static int counter = 0;
+  private static AtomicInteger counter = new AtomicInteger(0);
 
-  private ObjectMapper jsonMapper = new ObjectMapper();
+  private ObjectMapper propsMapper = new ObjectMapper(new JavaPropsFactory());
 
-  private ObjectMapper xmlMapper = new XmlMapper();
+  private ObjectMapper csvMapper = new ObjectMapper(new CsvFactory());
 
-  private ObjectMapper propsMapper = new JavaPropsMapper();
+  private ObjectMapper jsonMapper = new ObjectMapper(new JsonFactory());
 
-  private ObjectMapper csvMapper = new CsvMapper();
+  private XmlMapper xmlMapper = new XmlMapper();
 
   private ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
+  private ObjectMapper avroMapper = new ObjectMapper(new AvroFactory());
+
+  private ObjectMapper ionMapper = new ObjectMapper(new IonFactory());
+
+  private ObjectMapper cborMapper = new ObjectMapper(new CBORFactory());
+
+  private ObjectMapper protobufMapper = new ObjectMapper(new ProtobufFactory());
+
   @NonNull
   private UUIDService service;
+
+  /**
+   * UUID Property response.
+   *
+   * @return Property response
+   * @throws JsonProcessingException error converting to Property
+   */
+  @GetMapping(
+      value = BASE_PATH + ".properties",
+      produces = PROPERTIES_CONTENT_TYPE
+  )
+  public ResponseEntity getUUIDProperties() throws JsonProcessingException {
+    return ResponseEntity.ok(propsMapper
+        .writer(JavaPropsSchema.emptySchema().withKeyValueSeparator(SEPARATOR))
+        .writeValueAsString(getUUIDResponse()));
+  }
+
+  /**
+   * UUID CSV response.
+   *
+   * @return CSV response
+   * @throws JsonProcessingException error converting to CSV
+   */
+  @GetMapping(
+      value = BASE_PATH + ".csv",
+      produces = CSV_CONTENT_TYPE
+  )
+  public ResponseEntity getUUIDCsv() throws JsonProcessingException {
+    return ResponseEntity.ok(csvMapper
+        .writer(UUIDResponse.getCsvSchema())
+        .writeValueAsString(getUUIDResponse()));
+  }
 
   /**
    * UUID JSON response.
@@ -92,42 +145,94 @@ public class UUIDController {
   }
 
   /**
-   * UUID Property response.
+   * UUID Avro response.
    *
-   * @return Property response
-   * @throws JsonProcessingException error converting to Property
+   * @return Avro response
+   * @throws JsonProcessingException error converting to Avro
    */
   @GetMapping(
-      value = BASE_PATH + ".properties",
-      produces = PROPERTIES_CONTENT_TYPE
+      value = BASE_PATH + ".avro",
+      produces = AVRO_CONTENT_TYPE
   )
-  public ResponseEntity getUUIDProperties() throws JsonProcessingException {
-    return ResponseEntity.ok(propsMapper
-        .writer(JavaPropsSchema.emptySchema().withKeyValueSeparator(SEPARATOR))
-        .writeValueAsString(getUUIDResponse()));
+  public ResponseEntity getUUIDAvro() throws IOException {
+    UUIDResponse response = getUUIDResponse();
+    String avroInBase64 = Base64
+        .getEncoder()
+        .encodeToString(
+            avroMapper
+                .writer(response.getAvroSchema())
+                .writeValueAsBytes(response)
+        );
+    return ResponseEntity.ok(avroInBase64);
   }
 
   /**
-   * UUID CSV response.
+   * UUID Ion response.
    *
-   * @return CSV response
-   * @throws JsonProcessingException error converting to CSV
+   * @return Ion response
+   * @throws JsonProcessingException error converting to Ion
    */
   @GetMapping(
-      value = BASE_PATH + ".csv",
-      produces = CSV_CONTENT_TYPE
+      value = BASE_PATH + ".ion",
+      produces = ION_CONTENT_TYPE
   )
-  public ResponseEntity getUUIDCsv() throws JsonProcessingException {
-    return ResponseEntity.ok(((CsvMapper) csvMapper)
-        .writerWithSchemaFor(UUIDResponse.class)
-        .writeValueAsString(getUUIDResponse()));
+  public ResponseEntity getUUIDIon() throws JsonProcessingException {
+    UUIDResponse response = getUUIDResponse();
+    String ionInBase64 = Base64
+        .getEncoder()
+        .encodeToString(
+            ionMapper.writeValueAsBytes(response)
+        );
+    return ResponseEntity.ok(ionInBase64);
   }
 
-  private UUIDResponse getUUIDResponse() {
-    return UUIDResponse.builder()
-        .uuid(service.getUUID())
-        .count(counter++)
-        .build();
+  /**
+   * UUID Cbor response.
+   *
+   * @return Cbor response
+   * @throws JsonProcessingException error converting to Cbor
+   */
+  @GetMapping(
+      value = BASE_PATH + ".cbor",
+      produces = CBOR_CONTENT_TYPE
+  )
+  public ResponseEntity getUUIDCbor() throws JsonProcessingException {
+    UUIDResponse response = getUUIDResponse();
+    String cborInBase64 = Base64
+        .getEncoder()
+        .encodeToString(
+            cborMapper.writeValueAsBytes(response)
+        );
+    return ResponseEntity.ok(cborInBase64);
+  }
+
+  /**
+   * UUID Protobuf response.
+   *
+   * @return Protobuf response
+   * @throws JsonProcessingException error converting to Protobuf
+   */
+  @GetMapping(
+      value = BASE_PATH + ".protobuf",
+      produces = PROTOBUF_CONTENT_TYPE
+  )
+  public ResponseEntity getUUIDProtobuf() throws JsonProcessingException {
+    UUIDResponse response = getUUIDResponse();
+    String protobufInBase64 = Base64
+        .getEncoder()
+        .encodeToString(
+            protobufMapper
+                .writer(response.getProtobufSchema())
+                .writeValueAsBytes(response)
+        );
+    return ResponseEntity.ok(protobufInBase64);
+  }
+
+  private synchronized UUIDResponse getUUIDResponse() {
+    UUIDResponse response = new UUIDResponse();
+    response.setCount(counter.getAndIncrement());
+    response.setUuid(service.getUUID());
+    return response;
   }
 
 }
