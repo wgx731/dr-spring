@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>dr-spring</artifactId>
 		<groupId>com.github.wgx731</groupId>
-		<version>1.2.3</version>
+		<version>1.2.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>common</artifactId>
