@@ -23,7 +23,7 @@ git merge origin/dev
 sed -i.bak "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$newVersion<\/dr-spring.version>|" pom.xml
 setAppVer $newVersion
 git add pom.xml */pom.xml */application.properties
-git commit -m "set release version $newVersion :octopus:"
+git commit -m "[release]: set release version $newVersion :octopus:"
 git push
 git tag v$newVersion
 git push origin v$newVersion
@@ -39,7 +39,7 @@ git checkout master
 sed -i.bak "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$nextVersion<\/dr-spring.version>|" pom.xml
 setAppVer $nextVersion
 git add pom.xml */pom.xml */application.properties
-git commit -m "set snapshot version $nextVersion :snake:"
+git commit -m "[release]: set snapshot version $nextVersion :snake:"
 git push
 git checkout dev
 git pull
