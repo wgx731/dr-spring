@@ -1,13 +1,16 @@
+language: java
+
+jdk: oraclejdk9
+
+sudo: required
+
 branches:
   only:
   - master
   - dev
 
-language: java
-
-jdk: oraclejdk9
-
-sudo: false # faster builds
+services:
+  - docker
 
 script: "./mvnw clean package -Dmaven.javadoc.skip=true -B -V"
 
