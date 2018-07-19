@@ -12,7 +12,6 @@ function setAppVer {
 
 newVersion=$1
 nextVersion=$2
-newBranch=$3
 
 echo -e "${RED}Setting release version $newVersion${NC}"
 
@@ -27,10 +26,6 @@ git commit -m "[release]: set release version $newVersion :octopus:"
 git push
 git tag v$newVersion
 git push origin v$newVersion
-if [ "$newBranch" != "skip" ]; then
-    git checkout -b $newBranch
-    git push --set-upstream origin $newBranch
-fi
 
 echo -e "${RED}Setting snapshot version $nextVersion${NC}"
 

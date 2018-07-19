@@ -21,7 +21,7 @@ Dr. Spring
 
 ### Make release
 
-`./script/make-release.sh <new-version> <next-snapshot-version> <new-branch-name>`
+`./script/make-release.sh <new-version> <next-snapshot-version>`
 
 ## Contributing
 
