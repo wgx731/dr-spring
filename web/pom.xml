@@ -8,7 +8,7 @@
   <parent>
     <artifactId>dr-spring</artifactId>
     <groupId>com.github.wgx731</groupId>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>web</artifactId>
