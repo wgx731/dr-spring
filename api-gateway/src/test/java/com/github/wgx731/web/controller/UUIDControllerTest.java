@@ -35,7 +35,7 @@ public class UUIDControllerTest {
 
   @Rule
   public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation(
-      "target/snippets"
+      "target/docs/rest/snippets"
   );
 
   @MockBean

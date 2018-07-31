@@ -11,8 +11,8 @@
     <version>1.2.4-SNAPSHOT</version>
   </parent>
 
-  <artifactId>web</artifactId>
-  <name>Dr. Spring Web</name>
+  <artifactId>api-gateway</artifactId>
+  <name>Dr. Spring API Gateway</name>
 
   <dependencies>
 
@@ -104,10 +104,24 @@
       <plugin>
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>${asciidoctor-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>generate-docs</id>
+            <phase>package</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/main/resources/asciidoc</sourceDirectory>
+              <sourceDocumentName>index.adoc</sourceDocumentName>
+              <backend>html5</backend>
+              <attributes>
+                <snippets>${project.build.directory}/docs/rest/snippets</snippets>
+              </attributes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
