@@ -104,7 +104,6 @@
       <plugin>
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>${asciidoctor-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>generate-docs</id>
@@ -113,7 +112,7 @@
               <goal>process-asciidoc</goal>
             </goals>
             <configuration>
-              <sourceDirectory>${basedir}/src/main/resources/asciidoc</sourceDirectory>
+              <sourceDirectory>src/site/asciidoc</sourceDirectory>
               <sourceDocumentName>index.adoc</sourceDocumentName>
               <backend>html5</backend>
               <attributes>
@@ -132,7 +131,53 @@
           </excludes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <asciidoc>
+            <templateDirs>
+              <dir>src/site/asciidoc</dir>
+            </templateDirs>
+            <attributes>
+              <snippets>${project.build.directory}/docs/rest/snippets</snippets>
+            </attributes>
+          </asciidoc>
+          <moduleExcludes>
+            <asciidoc>**/_*.adoc</asciidoc>
+          </moduleExcludes>
+        </configuration>
+        <dependencies>
+          <dependency><!-- add Asciidoctor Doxia Parser Module -->
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>${asciidoctor-maven-plugin.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*Application.*</exclude>
+          </excludes>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <!-- select non-aggregate reports -->
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

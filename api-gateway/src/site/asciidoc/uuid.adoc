@@ -1,0 +1,111 @@
+=== AVRO response
+
+- curl request:
+include::{snippets}/uuid_avro/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_avro/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_avro/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_avro/http-response.adoc[]
+
+=== CBOR response
+
+- curl request:
+include::{snippets}/uuid_cbor/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_cbor/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_cbor/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_cbor/http-response.adoc[]
+
+=== CSV response
+
+- curl request:
+include::{snippets}/uuid_csv/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_csv/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_csv/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_csv/http-response.adoc[]
+
+=== ION response
+
+- curl request:
+include::{snippets}/uuid_ion/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_ion/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_ion/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_ion/http-response.adoc[]
+
+=== JSON response
+
+- curl request:
+include::{snippets}/uuid_json/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_json/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_json/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_json/http-response.adoc[]
+
+=== Properties response
+
+- curl request:
+include::{snippets}/uuid_properties/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_properties/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_properties/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_properties/http-response.adoc[]
+
+=== XML response
+
+- curl request:
+include::{snippets}/uuid_xml/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_xml/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_xml/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_xml/http-response.adoc[]
+
+=== YAML response
+
+- curl request:
+include::{snippets}/uuid_yaml/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/uuid_yaml/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/uuid_yaml/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/uuid_yaml/http-response.adoc[]
