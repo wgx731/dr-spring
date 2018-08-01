@@ -21,7 +21,7 @@ jobs:
     - "npm i -g restdocs-to-postman@v2.0.0  || exit 105"
     - "$PWD/scripts/generate-postman.sh || exit 106"
     - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
-    - "apt-get update && apt-get install -y python-dev libffi-dev libssl-dev || exit 108"
+    - "sudo apt-get update && sudo apt-get install -y python-dev libffi-dev libssl-dev || exit 108"
     - "pip install --user 'requests[security]' || exit 109"
     - "pip install --user 'apimatic-cli==2.3' || exit 110"
     - "$PWD/scripts/generate-openapi.sh || exit 111"
