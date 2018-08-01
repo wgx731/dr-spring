@@ -21,7 +21,7 @@ jobs:
     - "npm i -g restdocs-to-postman@v2.0.0  || exit 105"
     - "$PWD/scripts/generate-postman.sh || exit 106"
     - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
-    - "pip install apimatic-cli==2.3 || exit 108"
+    - "pip install --user apimatic-cli==2.3 || exit 108"
     - "$PWD/scripts/generate-openapi.sh || exit 109"
     - "$PWD/scripts/build-images.sh || exit 110"
     after_success:
