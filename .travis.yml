@@ -12,7 +12,7 @@ jobs:
   include:
   - stage: build artifact and documentation
     if : branch = master
-    script:j
+    script:
     - "$PWD/scripts/clean-up.sh"
     - "$PWD/scripts/build-artifacts.sh"
     - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh"
