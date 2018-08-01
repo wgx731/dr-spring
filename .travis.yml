@@ -15,8 +15,8 @@ jobs:
     script:
     - "$PWD/scripts/clean-up.sh"
     - "$PWD/scripts/build-artifacts.sh || exit 101"
-    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh || exit 102"
-    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile $PWD/scripts/generate-openapi.sh || exit 103"
+    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile ./scripts/generate-postman.sh || exit 102"
+    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile ./scripts/generate-openapi.sh || exit 103"
     - "$PWD/scripts/build-images.sh || exit 104"
     after_success:
     - "$PWD/scripts/make-release.sh || exit 200"
