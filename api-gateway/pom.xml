@@ -85,6 +85,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
+          <asciidoc>
+            <templateDirs>
+              <dir>src/site/asciidoc</dir>
+            </templateDirs>
+            <attributes>
+              <snippets>${project.build.directory}/docs/rest/snippets</snippets>
+            </attributes>
+          </asciidoc>
           <moduleExcludes>
             <asciidoc>**/_*.adoc</asciidoc>
           </moduleExcludes>

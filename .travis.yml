@@ -13,17 +13,17 @@ jobs:
   - stage: build artifact and documentation
     if : branch = master
     script:
-    - "$PWD/scripts/clean-up.sh"
-    - "$PWD/scripts/build-artifacts.sh"
-    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh"
-    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile $PWD/scripts/generate-openapi.sh"
-    - "$PWD/scripts/make-release.sh"
-    - "$PWD/scripts/build-images.sh"
+    - "$PWD/scripts/clean-up.sh || exit 100"
+    - "$PWD/scripts/build-artifacts.sh || exit 101"
+    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh || exit 102"
+    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile $PWD/scripts/generate-openapi.sh || exit 103"
+    - "$PWD/scripts/build-images.sh || exit 104"
     after_success:
-    - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com"
-    - "docker push registry.heroku.com/dr-spring"
+    - "$PWD/scripts/make-release.sh || exit 200"
+    - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit 201"
+    - "docker push registry.heroku.com/dr-spring || exit 202"
 
   - stage: test coverage and make release
     if : branch = dev
     script:
-    - "$PWD/scripts/test-coverage.sh"
+    - "$PWD/scripts/test-coverage.sh || 300"
