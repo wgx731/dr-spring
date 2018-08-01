@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("checkstyle:JavadocMethod")
 public class UUIDStringSupplierTest {
 
   private UUIDStringSupplier supplier;

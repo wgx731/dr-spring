@@ -1,4 +1,7 @@
-package com.github.wgx731.web.response;
+package com.github.wgx731.pojo;
+
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -8,20 +11,18 @@ import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.fasterxml.jackson.dataformat.protobuf.ProtobufFactory;
-import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchema;
-import com.fasterxml.jackson.dataformat.protobuf.schemagen.ProtobufSchemaGenerator;
 import lombok.Data;
 import lombok.ToString;
 
 @ToString
 @Data
-public class UUIDResponse {
+public class BermudaTriangle {
 
   private static AvroSchema avroSchema = null;
 
   /**
    * Generate static UUID Response avro schema.
+   *
    * @return AvroSchema UUIDResponse avro schema
    * @throws JsonMappingException error generate schema
    */
@@ -29,40 +30,24 @@ public class UUIDResponse {
     if (avroSchema == null) {
       ObjectMapper mapper = new ObjectMapper(new AvroFactory());
       AvroSchemaGenerator gen = new AvroSchemaGenerator();
-      mapper.acceptJsonFormatVisitor(UUIDResponse.class, gen);
+      mapper.acceptJsonFormatVisitor(BermudaTriangle.class, gen);
       avroSchema = gen.getGeneratedSchema();
     }
     return avroSchema;
-  }
-
-  private static ProtobufSchema protobufSchema = null;
-
-  /**
-   * Generate static UUID Response protobuf schema.
-   * @return ProtobufSchema UUIDResponse protobuf schema
-   * @throws JsonMappingException error generate schema
-   */
-  public static synchronized ProtobufSchema getProtobufSchema() throws JsonMappingException {
-    if (protobufSchema == null) {
-      ObjectMapper mapper = new ObjectMapper(new ProtobufFactory());
-      ProtobufSchemaGenerator gen = new ProtobufSchemaGenerator();
-      mapper.acceptJsonFormatVisitor(UUIDResponse.class, gen);
-      protobufSchema = gen.getGeneratedSchema();
-    }
-    return protobufSchema;
   }
 
   private static CsvSchema csvSchema = null;
 
   /**
    * Generate static UUID Response csv schema.
+   *
    * @return CsvSchema UUIDResponse csv schema
    * @throws JsonMappingException error generate schema
    */
   public static synchronized CsvSchema getCsvSchema() {
     if (csvSchema == null) {
       CsvMapper mapper = new CsvMapper();
-      csvSchema = mapper.schemaFor(UUIDResponse.class);
+      csvSchema = mapper.schemaFor(BermudaTriangle.class);
     }
     return csvSchema;
   }
@@ -73,4 +58,38 @@ public class UUIDResponse {
   @JsonProperty("count")
   private int count;
 
+  @JsonProperty("boolean")
+  private Boolean booleanValue;
+
+  @JsonProperty("int")
+  private Integer intValue;
+
+  @JsonProperty("long")
+  private Long longValue;
+
+  @JsonProperty("float")
+  private Float floatValue;
+
+  @JsonProperty("double")
+  private Double doubleValue;
+
+  @JsonProperty("byte")
+  private Byte byteValue;
+
+  @JsonProperty("short")
+  private Short shortValue;
+
+  @JsonProperty("char")
+  private Character charValue;
+
+  @JsonProperty("decimal")
+  private BigDecimal decimalValue;
+
+  @JsonProperty("bytes")
+  private byte[] bytesValue;
+
+  @JsonProperty("string")
+  private String stringValue;
+
 }
+

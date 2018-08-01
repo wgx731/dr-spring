@@ -4,7 +4,7 @@ Wang Eric GaoXiang
 :icons: font
 :source-highlighter: highlightjs
 
-== UUID REST Doc
+== Bermuda Counter REST Doc
 
-include::uuid.adoc[]
+include::bermuda.adoc[]
 
