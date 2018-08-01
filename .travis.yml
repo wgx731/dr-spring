@@ -13,7 +13,7 @@ jobs:
   - stage: build artifact and documentation
     if : branch = master
     script:
-    - "$PWD/scripts/clean-up.sh || exit 100"
+    - "$PWD/scripts/clean-up.sh"
     - "$PWD/scripts/build-artifacts.sh || exit 101"
     - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh || exit 102"
     - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile $PWD/scripts/generate-openapi.sh || exit 103"
