@@ -27,6 +27,7 @@ git push origin v${RELEASE_VERSION} || exit 61
 
 echo "[MAKE-RELEASE] creating snapshot with version $SNAPSHOT_VERSION in 'dev' branch ..."
 git checkout dev || exit 62
+git pull || exit 62
 $PWD/mvnw versions:set -DnewVersion=${SNAPSHOT_VERSION} || exit 62
 sed \
   -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$SNAPSHOT_VERSION<\/dr-spring.version>|" \

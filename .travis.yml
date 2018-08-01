@@ -19,9 +19,9 @@ jobs:
     - "nvm install 8.11.3 || exit 103"
     - "nvm use 8.11.3 || exit 104"
     - "npm i -g restdocs-to-postman@v2.0.0  || exit 105"
-    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile ./scripts/generate-postman.sh || exit 106"
+    - "$PWD/scripts/generate-postman.sh || exit 106"
     - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
-    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile ./scripts/generate-openapi.sh || exit 108"
+    - "$PWD/scripts/generate-openapi.sh || exit 108"
     - "$PWD/scripts/build-images.sh || exit 109"
     after_success:
     - "$PWD/scripts/make-release.sh || exit 200"
