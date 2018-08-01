@@ -1,12 +1,12 @@
-FROM openjdk:9-jre
+FROM openjdk:10-jdk-slim
 MAINTAINER Wang Eric GaoXiang <wgx731@gmail.com>
 
 ARG JAR_FILE
 ADD target/${JAR_FILE} /opt/webapp/app.jar
 
 # Run the image as a non-root user
-RUN useradd -ms /bin/bash springuser
-USER springuser
+RUN useradd -ms /bin/bash runner
+USER runner
 
 WORKDIR /opt/webapp
 

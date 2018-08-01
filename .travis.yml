@@ -1,19 +1,29 @@
 language: java
 
-jdk: oraclejdk9
-
 sudo: required
 
-branches:
-  only:
-  - master
-  - dev
+jdk:
+- openjdk10
 
 services:
-  - docker
+- docker
 
-script: "./mvnw clean package -Dmaven.javadoc.skip=true -B -V"
+jobs:
+  include:
+  - stage: build artifact and documentation
+    if : branch = master
+    script:j
+    - "$PWD/scripts/clean-up.sh"
+    - "$PWD/scripts/build-artifacts.sh"
+    - "docker run --rm -v $PWD:/playground wgx731/gitlab-haile $PWD/scripts/generate-postman.sh"
+    - "docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile $PWD/scripts/generate-openapi.sh"
+    - "$PWD/scripts/make-release.sh"
+    - "$PWD/scripts/build-images.sh"
+    after_success:
+    - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com"
+    - "docker push registry.heroku.com/dr-spring"
 
-after_success:
-  - "cat $TRAVIS_BUILD_DIR/common/target/site/jacoco/jacoco.csv"
-  - "cat $TRAVIS_BUILD_DIR/web/target/site/jacoco/jacoco.csv"
+  - stage: test coverage and make release
+    if : branch = dev
+    script:
+    - "$PWD/scripts/test-coverage.sh"

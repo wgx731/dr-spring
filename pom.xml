@@ -50,7 +50,7 @@
 
     <coverage.threshold>0.85</coverage.threshold>
 
-    <java.version>1.9</java.version>
+    <java.version>10</java.version>
 
     <dr-spring.version>1.2.4-SNAPSHOT</dr-spring.version>
 
