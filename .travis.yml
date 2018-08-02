@@ -11,23 +11,17 @@ jobs:
     script:
     - "$PWD/scripts/clean-up.sh"
     - "$PWD/scripts/build-artifacts.sh || exit 101"
-    - "mkdir -p $PWD/api-gateway/target/docs/postman || exit 102"
-    - "nvm install 8.11.3 || exit 103"
-    - "nvm use 8.11.3 || exit 104"
-    - "npm i -g restdocs-to-postman@v2.0.0  || exit 105"
+    - mkdir -p $PWD/api-gateway/target/docs/postman || exit 102
+    - nvm install 8.11.3 || exit 103
+    - nvm use 8.11.3 || exit 104
+    - npm i -g restdocs-to-postman@v2.0.0  || exit 105
     - "$PWD/scripts/generate-postman.sh || exit 106"
-    - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
-    # TODO: check with travis team on permission
-    # - "docker run --rm -v $PWD:/playground -e APIMATIC_KEY=$APIMATIC_KEY wgx731/gitlab-haile ./scripts/generate-openapi.sh || exit 108"
+    - mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107
     - "$PWD/scripts/build-images.sh || exit 109"
-    after_success:
-    - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit 201"
-    - "docker push registry.heroku.com/dr-spring || exit 202"
   - stage: test coverage and make release
     if: branch = dev
     script:
     - "$PWD/scripts/test-coverage.sh || exit 300"
 env:
   global:
-  - secure: f7Vt18/JgZzBP/h3p23QwveFugs5aWVgO3nMoS7d82k/CckgKkl/KmTghBQYaPJX6u6aW8MfiaKrMhuS8iCaGs4xCCzoEcdxf/wSBlbps+QkxWRlc8vEiP3G/xR/usLgFGflP2H4dcDR2U58ke6tCaVMsdTx+VxZzY0lvJEHlpExIYAGQG2cwz/o1J3fT9l2c3rSSMbPyueEQpcVleppx7XFtHkssouEp7kLEKPXI+Ka0B76lGKlUoS4JzIsvEpyXSlAFf83y7J7nUvB2FIC0fw8oMcj9TjjPUgmel/NGJHUu4G8NO5Y4s9wct4HdHblp1HRMREDxYtsKgPOCz3cxbNO0GPodHsa3kYyrxAVSBN4XI6c/rDsNwJHkgeEeWtG79dpStAn0YyFkycgNAmU1riZBrYhroDoA0VF/V11A8Q+Y+Yvsl40NMfJVNA0ubh3Wg222HrYc1MeQ4cokdqfhSinnjMSUEk1sHXQQemzTlKx5ngx5JIKRiX2MS24NFzJnwYr5QTOnEQ0pyFL5IwTZyh5v0qyhU28pRfv+X6lK3rX++bVlr+yIijODODPMNKPLDA+7bpTNYpjaFGj2LyyG+K5tfIYsHtUOzAtMBkSynx42T4b6raqlYXAibh9nOj4Spk7x24Jd87GTTNt8qWnAcfoTK8FeNf6W/QTTTHiLJk=
-  - secure: bz+6HXbt+HcHXFdmOKR7vtAn9mOvr8AmSMyDIkdkH6oKfNpXEXMj4pnPP/SOQuOS5e8lp3f4I4qHmkw4rzLLfT131rfRsUrk74e6475hTGssVHBMe0BgupVrhoeXZS5JYg9qGS5KbGCPox/2JPDeIKiEi1jliFU6ViGhHbOCA3mig9G7+w5UrJY7AOmgoRL+zwbAHnxVKIKU7WQsn10JJJaZ3rE5sT6v8N9ieKBme3t56DIdDg0gEzeXlqFkRB6HRTESwwQrYm+RCrWIeVAtim6SR5OOOg7eF639HLzX/sGBlbduJ9mLcDNnGhdDY7ZARpdagbe7AdPWDzbW0ZolA2q7mHHhq4cQmPgK2Ij0+mveSDlWGPYnIw0S08qi04w7Z9sFejg8HLokBKou4I7DRjnmA4gLSnNBU0rhYexiThk3/aHZnSKCbDvk8vwqrRnkr98iEE0qc0Xm45QVAn9dTHo8UcCt4FN4s8IfIjbfSuES5YU3VloXgMt4lixsA+qqchWintvakC2LnhIQmL+k+ukH7NLqDVx+RUt0THoEQwRPZZayXxPPk+R6I+l1eDL23yMvXDoud7dlzHCOJh8EsQ5fYqpViJr/udyw3w2DCa7OFi9CrKVdpm67zdPLdKB8Sio516Gc8rIahLyAVQA+eZkujRmLkGAunznqOjDgNsQ=
+    secure: ndh+U5rQrkLFh25c6DMKBvPWnd8PxGCPZ8HBQACvh5vA6XndXCQn5DDMhdoi/+UCDWSeVPUNNQOw4miwPeRZJ/jmooj5mK63u2bRzD3O+LY6r/jZBhGtylbQZAUEYHjF/UbGaW9KmNluLqaA+nC772qCwCa65UQKVc/lV8coy0xm719m6E/A4NfR7bk4x9y0MDBO4wRPFFtfmvhPTEJ7NnNp/tUS8uJJv0hEDnk25YAT4ceF/Bl1RaULloyHgsHKaW+6qj3yKf8Tj6Q6V0+XfMK49tayNA1kyIENqjz8fY+XKh09ODv5Bn9tbFMZO+N9Jwu5K1MOeeN4lvYbva8lF5Q2Osy13j1wLRN+9Fd240G2HsiPdSAhUyFZpd5YXApLlAEzepOkjUlv400MLvFrZM8vhhIllBi8KOgSp7uFZHAweOk9fwjwgClp59t4ORMaQPAgZ95YKcl7DXYTTrhr0LT9LpqLZHqyuXCX2xDZXs92ffvs7homguxsVZp/uRo9QresSQB5wxm/ajj4xIUga7GqIcrYy883QG66sEIX606V3jICjeWiazmO21cDKTTTQBhsUnMvYgnJuRLyPuT7w6aYrT8b3RobNnGf1zJakouTgHU13v9Qgx5p82XOCNJzfkTDv4r0sGOm6+VGsr6BYzkBY/0/TV6qhD0OF9vq5Ds=
