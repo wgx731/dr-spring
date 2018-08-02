@@ -15,8 +15,7 @@ git checkout master || exit 61
 git pull || exit 61
 git merge origin/dev || exit 61
 $PWD/mvnw versions:set -DnewVersion=${RELEASE_VERSION} || exit 61
-sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$RELEASE_VERSION<\/dr-spring.version>|" \
- pom.xml || exit 61
+sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$RELEASE_VERSION<\/dr-spring.version>|" pom.xml || exit 61
 setAppVer ${RELEASE_VERSION} || exit 61
 git add pom.xml */pom.xml */application.properties || exit 61
 git commit -m "[RELEASE]: create release with version $RELEASE_VERSION in 'master' branch :octopus:" || exit 61
@@ -28,8 +27,7 @@ echo "[MAKE-RELEASE] creating snapshot with version $SNAPSHOT_VERSION in 'dev' b
 git checkout dev || exit 62
 git pull || exit 62
 $PWD/mvnw versions:set -DnewVersion=${SNAPSHOT_VERSION} || exit 62
-sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$SNAPSHOT_VERSION<\/dr-spring.version>|" \
-  pom.xml || exit 62
+sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$SNAPSHOT_VERSION<\/dr-spring.version>|" pom.xml || exit 62
 setAppVer ${SNAPSHOT_VERSION} || exit 62
 git add pom.xml */pom.xml */application.properties || exit 62
 git commit -m "[RELEASE]: create snapshot with version $SNAPSHOT_VERSION in 'dev' branch :snake:" || exit 62
