@@ -22,10 +22,9 @@ jobs:
     - "$PWD/scripts/generate-postman.sh || exit 106"
     - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
     - "sudo apt-get update && sudo apt-get install -y python-dev libffi-dev libssl-dev || exit 108"
-    - "pip install --user 'requests[security]' || exit 109"
-    - "pip install --user 'apimatic-cli==2.3' || exit 110"
-    - "$PWD/scripts/generate-openapi.sh || exit 111"
-    - "$PWD/scripts/build-images.sh || exit 112"
+    - "pip install --user 'urllib3[secure]' 'apimatic-cli==2.3'|| exit 109"
+    - "$PWD/scripts/generate-openapi.sh || exit 110"
+    - "$PWD/scripts/build-images.sh || exit 111"
     after_success:
     - "$PWD/scripts/make-release.sh || exit 200"
     - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit 201"
