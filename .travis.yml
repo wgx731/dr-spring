@@ -1,9 +1,13 @@
 language: java
+
 sudo: required
+
 jdk:
 - openjdk10
+
 services:
 - docker
+
 jobs:
   include:
   - stage: build artifact and documentation
@@ -16,12 +20,13 @@ jobs:
     - nvm use 8.11.3 || exit 104
     - npm i -g restdocs-to-postman@v2.0.0  || exit 105
     - "$PWD/scripts/generate-postman.sh || exit 106"
-    - mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107
-    - "$PWD/scripts/build-images.sh || exit 109"
+    # TODO: add generate openapi docs part
+    # - mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107
   - stage: test coverage and make release
     if: branch = dev
     script:
     - "$PWD/scripts/test-coverage.sh || exit 300"
+
 env:
   global:
     secure: ndh+U5rQrkLFh25c6DMKBvPWnd8PxGCPZ8HBQACvh5vA6XndXCQn5DDMhdoi/+UCDWSeVPUNNQOw4miwPeRZJ/jmooj5mK63u2bRzD3O+LY6r/jZBhGtylbQZAUEYHjF/UbGaW9KmNluLqaA+nC772qCwCa65UQKVc/lV8coy0xm719m6E/A4NfR7bk4x9y0MDBO4wRPFFtfmvhPTEJ7NnNp/tUS8uJJv0hEDnk25YAT4ceF/Bl1RaULloyHgsHKaW+6qj3yKf8Tj6Q6V0+XfMK49tayNA1kyIENqjz8fY+XKh09ODv5Bn9tbFMZO+N9Jwu5K1MOeeN4lvYbva8lF5Q2Osy13j1wLRN+9Fd240G2HsiPdSAhUyFZpd5YXApLlAEzepOkjUlv400MLvFrZM8vhhIllBi8KOgSp7uFZHAweOk9fwjwgClp59t4ORMaQPAgZ95YKcl7DXYTTrhr0LT9LpqLZHqyuXCX2xDZXs92ffvs7homguxsVZp/uRo9QresSQB5wxm/ajj4xIUga7GqIcrYy883QG66sEIX606V3jICjeWiazmO21cDKTTTQBhsUnMvYgnJuRLyPuT7w6aYrT8b3RobNnGf1zJakouTgHU13v9Qgx5p82XOCNJzfkTDv4r0sGOm6+VGsr6BYzkBY/0/TV6qhD0OF9vq5Ds=
