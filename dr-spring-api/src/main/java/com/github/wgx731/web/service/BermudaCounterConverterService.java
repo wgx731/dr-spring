@@ -1,8 +1,6 @@
 package com.github.wgx731.web.service;
 
-import java.math.BigDecimal;
 import java.util.Base64;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,16 +19,13 @@ import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.wgx731.pojo.BermudaTriangle;
-import com.github.wgx731.service.BermudaService;
-import com.github.wgx731.supplier.UUIDStringSupplier;
+import com.github.wgx731.service.BermudaConverterService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BermudaCounterService implements BermudaService {
+public class BermudaCounterConverterService implements BermudaConverterService {
 
   public static final String SEPARATOR = "<-===->";
-
-  private static AtomicInteger counter = new AtomicInteger(0);
 
   private AvroSchema avroSchema = null;
 
@@ -82,78 +77,69 @@ public class BermudaCounterService implements BermudaService {
 
   private ObjectMapper cborMapper = new ObjectMapper(new CBORFactory());
 
-  synchronized BermudaTriangle getBermudaTriangle() {
-    BermudaTriangle instance = new BermudaTriangle();
-    instance.setUuid(new UUIDStringSupplier().get());
-    instance.setCount(counter.incrementAndGet());
-    instance.setBooleanValue(Boolean.FALSE);
-    instance.setIntValue(Integer.MAX_VALUE);
-    instance.setLongValue(Long.MIN_VALUE);
-    instance.setFloatValue(Float.MAX_VALUE);
-    instance.setDoubleValue(Double.MIN_VALUE);
-    instance.setByteValue(Byte.MAX_VALUE);
-    instance.setShortValue(Short.MIN_VALUE);
-    instance.setCharValue('*');
-    instance.setDecimalValue(BigDecimal.ONE);
-    instance.setBytesValue("dr-spring".getBytes());
-    instance.setStringValue("hello world from dr-spring!");
-    return instance;
-  }
 
   @Override
-  public String getPropertiesString() throws JsonProcessingException {
+  public String getPropertiesString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
     return propsMapper
         .writer(JavaPropsSchema.emptySchema().withKeyValueSeparator(SEPARATOR))
-        .writeValueAsString(getBermudaTriangle());
+        .writeValueAsString(bermudaTriangle);
   }
 
   @Override
-  public String getCsvString() throws JsonProcessingException {
+  public String getCsvString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
     return csvMapper
         .writer(this.getCsvSchema())
-        .writeValueAsString(getBermudaTriangle());
+        .writeValueAsString(bermudaTriangle);
   }
 
   @Override
-  public String getJsonString() throws JsonProcessingException {
-    return jsonMapper.writeValueAsString(getBermudaTriangle());
+  public String getJsonString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
+    return jsonMapper.writeValueAsString(bermudaTriangle);
   }
 
   @Override
-  public String getXmlString() throws JsonProcessingException {
-    return xmlMapper.writeValueAsString(getBermudaTriangle());
+  public String getXmlString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
+    return xmlMapper.writeValueAsString(bermudaTriangle);
   }
 
   @Override
-  public String getYamlString() throws JsonProcessingException {
-    return yamlMapper.writeValueAsString(getBermudaTriangle());
+  public String getYamlString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
+    return yamlMapper.writeValueAsString(bermudaTriangle);
   }
 
   @Override
-  public String getAvroString() throws JsonProcessingException {
+  public String getAvroString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
     return Base64
         .getEncoder()
         .encodeToString(avroMapper
             .writer(this.getAvroSchema())
-            .writeValueAsBytes(getBermudaTriangle())
+            .writeValueAsBytes(bermudaTriangle)
         );
   }
 
   @Override
-  public String getIonString() throws JsonProcessingException {
+  public String getIonString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
     return Base64
         .getEncoder()
         .encodeToString(ionMapper
-            .writeValueAsBytes(getBermudaTriangle())
+            .writeValueAsBytes(bermudaTriangle)
         );
   }
 
   @Override
-  public String getCborString() throws JsonProcessingException {
+  public String getCborString(BermudaTriangle bermudaTriangle)
+      throws JsonProcessingException {
     return Base64
         .getEncoder()
         .encodeToString(cborMapper
-            .writeValueAsBytes(getBermudaTriangle())
+            .writeValueAsBytes(bermudaTriangle)
         );
   }
 

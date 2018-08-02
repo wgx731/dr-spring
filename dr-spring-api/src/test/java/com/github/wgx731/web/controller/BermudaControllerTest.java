@@ -1,7 +1,7 @@
 package com.github.wgx731.web.controller;
 
-import com.github.wgx731.service.BermudaService;
-import com.github.wgx731.web.service.BermudaCounterService;
+import com.github.wgx731.service.BermudaConverterService;
+import com.github.wgx731.web.service.BermudaCounterConverterService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,7 +26,7 @@ public class BermudaControllerTest {
       "target/docs/rest/snippets"
   );
 
-  private BermudaService service;
+  private BermudaConverterService service;
 
   private BermudaController controller;
 
@@ -34,7 +34,7 @@ public class BermudaControllerTest {
 
   @Before
   public void setUp() {
-    this.service = new BermudaCounterService();
+    this.service = new BermudaCounterConverterService();
     this.controller = new BermudaController(service);
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()

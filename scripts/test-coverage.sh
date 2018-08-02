@@ -11,4 +11,4 @@ awk -F\
  "," \
  '{ instructions += $4 + $5; covered += $5 } END \
  { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' \
- $PWD/api-gateway/target/site/jacoco/jacoco.csv || exit 22
+ $PWD/dr-spring-api/target/site/jacoco/jacoco.csv || exit 22

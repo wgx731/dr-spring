@@ -1,7 +1,12 @@
 package com.github.wgx731.web.controller;
 
+import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.wgx731.service.BermudaService;
+import com.github.wgx731.pojo.BermudaTriangle;
+import com.github.wgx731.service.BermudaConverterService;
+import com.github.wgx731.supplier.UUIDStringSupplier;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +25,8 @@ public class BermudaController {
 
   public static final String BASE_PATH = "/api/bermuda";
 
+  private static AtomicInteger counter = new AtomicInteger(0);
+
   static final String PROPERTIES_CONTENT_TYPE = "text/plain";
   static final String CSV_CONTENT_TYPE = "text/csv";
   static final String JSON_CONTENT_TYPE = "application/json";
@@ -30,7 +37,25 @@ public class BermudaController {
   static final String CBOR_CONTENT_TYPE = "text/cbor";
 
   @NonNull
-  private BermudaService service;
+  private BermudaConverterService service;
+
+  synchronized BermudaTriangle getBermudaTriangle() {
+    BermudaTriangle instance = new BermudaTriangle();
+    instance.setUuid(new UUIDStringSupplier().get());
+    instance.setCount(counter.incrementAndGet());
+    instance.setBooleanValue(Boolean.FALSE);
+    instance.setIntValue(Integer.MAX_VALUE);
+    instance.setLongValue(Long.MIN_VALUE);
+    instance.setFloatValue(Float.MAX_VALUE);
+    instance.setDoubleValue(Double.MIN_VALUE);
+    instance.setByteValue(Byte.MAX_VALUE);
+    instance.setShortValue(Short.MIN_VALUE);
+    instance.setCharValue('*');
+    instance.setDecimalValue(BigDecimal.ONE);
+    instance.setBytesValue("dr-spring".getBytes());
+    instance.setStringValue("hello world from dr-spring!");
+    return instance;
+  }
 
   /**
    * UUID Property response.
@@ -43,7 +68,7 @@ public class BermudaController {
       produces = PROPERTIES_CONTENT_TYPE
   )
   public ResponseEntity getProperties() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getPropertiesString());
+    return ResponseEntity.ok(service.getPropertiesString(getBermudaTriangle()));
   }
 
   /**
@@ -57,7 +82,7 @@ public class BermudaController {
       produces = CSV_CONTENT_TYPE
   )
   public ResponseEntity getCsv() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getCsvString());
+    return ResponseEntity.ok(service.getCsvString(getBermudaTriangle()));
   }
 
   /**
@@ -71,7 +96,7 @@ public class BermudaController {
       produces = JSON_CONTENT_TYPE
   )
   public ResponseEntity getJson() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getJsonString());
+    return ResponseEntity.ok(service.getJsonString(getBermudaTriangle()));
   }
 
   /**
@@ -85,7 +110,7 @@ public class BermudaController {
       produces = XML_CONTENT_TYPE
   )
   public ResponseEntity getXml() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getXmlString());
+    return ResponseEntity.ok(service.getXmlString(getBermudaTriangle()));
   }
 
   /**
@@ -99,7 +124,7 @@ public class BermudaController {
       produces = YAML_CONTENT_TYPE
   )
   public ResponseEntity getYaml() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getYamlString());
+    return ResponseEntity.ok(service.getYamlString(getBermudaTriangle()));
   }
 
   /**
@@ -113,7 +138,7 @@ public class BermudaController {
       produces = AVRO_CONTENT_TYPE
   )
   public ResponseEntity getAvro() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getAvroString());
+    return ResponseEntity.ok(service.getAvroString(getBermudaTriangle()));
   }
 
   /**
@@ -127,7 +152,7 @@ public class BermudaController {
       produces = ION_CONTENT_TYPE
   )
   public ResponseEntity getIon() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getIonString());
+    return ResponseEntity.ok(service.getIonString(getBermudaTriangle()));
   }
 
   /**
@@ -141,7 +166,7 @@ public class BermudaController {
       produces = CBOR_CONTENT_TYPE
   )
   public ResponseEntity getCbor() throws JsonProcessingException {
-    return ResponseEntity.ok(service.getCborString());
+    return ResponseEntity.ok(service.getCborString(getBermudaTriangle()));
   }
 
 }

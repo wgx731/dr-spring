@@ -1,7 +1,7 @@
 package com.github.wgx731.web.service;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.github.wgx731.service.BermudaService;
+import com.github.wgx731.service.BermudaConverterService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,11 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BermudaCounterServiceTest {
 
 
-  private BermudaService service;
+  private BermudaConverterService service;
 
   @Before
   public void setUp() {
-    this.service = new BermudaCounterService();
+    this.service = new BermudaCounterConverterService();
   }
 
   @After
