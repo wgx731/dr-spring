@@ -4,7 +4,7 @@ function setAppVer {
     for i in `find . -name "application.properties"`; do
         if [[ "$OS" == 'Darwin' ]]; then
             sed -i "" "s/^info.app.version=.*/info.app.version=$1/g" ${i}
-        elfi
+        else
             sed -i "s/^info.app.version=.*/info.app.version=$1/g" ${i}
         fi
         grep -q "^info.app.version=.*" ${i} || echo "info.app.version=$1" >> ${i}
@@ -21,7 +21,7 @@ git merge origin/dev || exit 61
 $PWD/mvnw versions:set -DnewVersion=${RELEASE_VERSION} || exit 61
 if [[ "$OS" == 'Darwin' ]]; then
   sed -i "" "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$RELEASE_VERSION<\/dr-spring.version>|" pom.xml || exit 61
-elfi
+else
   sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$RELEASE_VERSION<\/dr-spring.version>|" pom.xml || exit 61
 fi
 setAppVer ${RELEASE_VERSION} || exit 61
@@ -37,7 +37,7 @@ git pull || exit 62
 $PWD/mvnw versions:set -DnewVersion=${SNAPSHOT_VERSION} || exit 62
 if [[ "$OS" == 'Darwin' ]]; then
   sed -i "" "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$SNAPSHOT_VERSION<\/dr-spring.version>|" pom.xml || exit 62
-elfi
+else
   sed -i "s|<dr-spring.version>.*<\/dr-spring.version>|<dr-spring.version>$SNAPSHOT_VERSION<\/dr-spring.version>|" pom.xml || exit 62
 fi
 setAppVer ${SNAPSHOT_VERSION} || exit 62
