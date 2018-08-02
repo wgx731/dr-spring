@@ -107,8 +107,8 @@
   </pluginRepositories>
 
   <modules>
-    <module>common</module>
-    <module>api-gateway</module>
+    <module>dr-spring-common</module>
+    <module>dr-spring-api</module>
   </modules>
 
   <build>
@@ -322,12 +322,12 @@
       </dependency>
       <dependency>
         <groupId>com.github.wgx731</groupId>
-        <artifactId>common</artifactId>
+        <artifactId>dr-spring-common</artifactId>
         <version>${dr-spring.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.wgx731</groupId>
-        <artifactId>web</artifactId>
+        <artifactId>dr-spring-api</artifactId>
         <version>${dr-spring.version}</version>
       </dependency>
     </dependencies>

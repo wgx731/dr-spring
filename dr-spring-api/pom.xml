@@ -11,14 +11,14 @@
     <version>1.3.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>api-gateway</artifactId>
+  <artifactId>dr-spring-api</artifactId>
   <name>Dr. Spring API Gateway</name>
 
   <dependencies>
 
     <dependency>
       <groupId>com.github.wgx731</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>dr-spring-common</artifactId>
     </dependency>
 
     <dependency>
