@@ -5,10 +5,10 @@ source $PWD/scripts/config.sh || exit 50
 
 echo "[BUILD-IMAGES] build image ..."
 BASE_DIR=$PWD
-cd ${BASE_DIR}/api-gateway
+cd ${BASE_DIR}/dr-spring-api
 docker build \
   -t registry.heroku.com/dr-spring:${RELEASE_VERSION} \
-  --build-arg JAR_FILE=api-gateway-${RELEASE_VERSION}.jar \
+  --build-arg JAR_FILE=dr-spring-api-${RELEASE_VERSION}.jar \
   -f Dockerfile.web . || exit 51
 cd ${BASE_DIR}
 

@@ -11,7 +11,7 @@
 
   <groupId>com.github.wgx731</groupId>
   <artifactId>dr-spring</artifactId>
-  <version>1.3.0</version>
+  <version>1.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Dr. Spring</name>
@@ -52,12 +52,13 @@
 
     <java.version>10</java.version>
 
-    <dr-spring.version>1.3.0</dr-spring.version>
+    <dr-spring.version>1.3.1-SNAPSHOT</dr-spring.version>
 
     <assertj.version>3.8.0</assertj.version>
     <jackson.version>2.9.6</jackson.version>
     <lombok.version>1.18.0</lombok.version>
     <woodstox.version>5.1.0</woodstox.version>
+    <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
 
     <jacoco.version>0.8.1</jacoco.version>
     <checkstyle.version>8.5</checkstyle.version>
@@ -107,8 +108,8 @@
   </pluginRepositories>
 
   <modules>
-    <module>common</module>
-    <module>api-gateway</module>
+    <module>dr-spring-common</module>
+    <module>dr-spring-api</module>
   </modules>
 
   <build>
@@ -279,11 +280,6 @@
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.dataformat</groupId>
-        <artifactId>jackson-dataformat-protobuf</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.dataformat</groupId>
         <artifactId>jackson-dataformat-cbor</artifactId>
         <version>${jackson.version}</version>
       </dependency>
@@ -303,6 +299,21 @@
         <version>${woodstox.version}</version>
       </dependency>
       <dependency>
+        <groupId>com.alibaba.boot</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>${dubbo-spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.wgx731</groupId>
+        <artifactId>dr-spring-common</artifactId>
+        <version>${dr-spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.wgx731</groupId>
+        <artifactId>dr-spring-api</artifactId>
+        <version>${dr-spring.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
@@ -319,16 +330,6 @@
         <artifactId>assertj-core</artifactId>
         <version>${assertj.version}</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.github.wgx731</groupId>
-        <artifactId>common</artifactId>
-        <version>${dr-spring.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.wgx731</groupId>
-        <artifactId>web</artifactId>
-        <version>${dr-spring.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

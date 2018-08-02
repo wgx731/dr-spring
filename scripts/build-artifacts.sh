@@ -7,7 +7,7 @@ echo "[BUILD-ARTIFACTS] building artifacts ..."
 $PWD/mvnw clean package || exit 21
 
 echo "[BUILD-ARTIFACTS] packaging artifacts ..."
-cp $PWD/api-gateway/target/*.jar \
+cp $PWD/dr-spring-api/target/*.jar \
   $PWD/target || exit 22
 for module in ${MODULES}
 do
