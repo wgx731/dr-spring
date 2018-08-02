@@ -21,7 +21,6 @@ jobs:
     # - "docker run --rm -v $PWD:/playground -e APIMATIC_KEY=$APIMATIC_KEY wgx731/gitlab-haile ./scripts/generate-openapi.sh || exit 108"
     - "$PWD/scripts/build-images.sh || exit 109"
     after_success:
-    - "$PWD/scripts/make-release.sh || exit 200"
     - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit 201"
     - "docker push registry.heroku.com/dr-spring || exit 202"
   - stage: test coverage and make release
