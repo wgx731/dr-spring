@@ -1,6 +1,9 @@
 package com.github.wgx731.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.dataformat.avro.AvroSchema;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 public interface BermudaService {
 
@@ -19,5 +22,9 @@ public interface BermudaService {
   String getIonString() throws JsonProcessingException;
 
   String getCborString() throws JsonProcessingException;
+
+  AvroSchema getAvroSchema() throws JsonMappingException;
+
+  CsvSchema getCsvSchema();
 
 }

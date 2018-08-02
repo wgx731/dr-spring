@@ -3,7 +3,6 @@ package com.github.wgx731.pojo;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.github.wgx731.supplier.UUIDStringSupplier;
 import org.junit.After;
 import org.junit.Before;
@@ -189,48 +188,6 @@ public class BermudaTriangleTest {
   @After
   public void tearDown() {
     testCase = null;
-  }
-
-  @Test
-  public void getAvroSchema() throws JsonMappingException {
-    String schemaString = BermudaTriangle.getAvroSchema().getAvroSchema().toString();
-    assertThat(schemaString).contains(
-        "com.github.wgx731.pojo",
-        "boolean",
-        "java.lang.Byte",
-        "[B",
-        "java.lang.Character",
-        "java.lang.Integer",
-        "java.math.BigDecimal",
-        "java.lang.Double",
-        "java.lang.Float",
-        "ava.lang.Integer",
-        "java.lang.Long",
-        "java.lang.Short",
-        "string"
-    );
-    BermudaTriangle.getAvroSchema();
-  }
-
-  @Test
-  public void getCsvSchema() {
-    String schemaString = BermudaTriangle.getCsvSchema().toString();
-    assertThat(schemaString).contains(
-        "\"boolean\"/STRING,",
-        "\"byte\"/STRING,",
-        "\"bytes\"/STRING,",
-        "\"char\"/STRING,",
-        "\"count\"/STRING,",
-        "\"decimal\"/STRING,",
-        "\"double\"/STRING,",
-        "\"float\"/STRING,",
-        "\"int\"/STRING,",
-        "\"long\"/STRING,",
-        "\"short\"/STRING,",
-        "\"string\"/STRING,",
-        "\"uuid\"/STRING"
-    );
-    BermudaTriangle.getCsvSchema();
   }
 
   @Test

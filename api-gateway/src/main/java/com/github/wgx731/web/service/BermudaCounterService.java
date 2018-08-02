@@ -6,10 +6,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.avro.AvroFactory;
+import com.fasterxml.jackson.dataformat.avro.AvroSchema;
+import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
 import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 import com.fasterxml.jackson.dataformat.csv.CsvFactory;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.dataformat.ion.IonFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
@@ -26,6 +31,40 @@ public class BermudaCounterService implements BermudaService {
   public static final String SEPARATOR = "<-===->";
 
   private static AtomicInteger counter = new AtomicInteger(0);
+
+  private AvroSchema avroSchema = null;
+
+  /**
+   * Generate static UUID Response avro schema.
+   *
+   * @return AvroSchema UUIDResponse avro schema
+   * @throws JsonMappingException error generate schema
+   */
+  public synchronized AvroSchema getAvroSchema() throws JsonMappingException {
+    if (avroSchema == null) {
+      ObjectMapper mapper = new ObjectMapper(new AvroFactory());
+      AvroSchemaGenerator gen = new AvroSchemaGenerator();
+      mapper.acceptJsonFormatVisitor(BermudaTriangle.class, gen);
+      avroSchema = gen.getGeneratedSchema();
+    }
+    return avroSchema;
+  }
+
+  private CsvSchema csvSchema = null;
+
+  /**
+   * Generate static UUID Response csv schema.
+   *
+   * @return CsvSchema UUIDResponse csv schema
+   * @throws JsonMappingException error generate schema
+   */
+  public synchronized CsvSchema getCsvSchema() {
+    if (csvSchema == null) {
+      CsvMapper mapper = new CsvMapper();
+      csvSchema = mapper.schemaFor(BermudaTriangle.class);
+    }
+    return csvSchema;
+  }
 
   private ObjectMapper propsMapper = new ObjectMapper(new JavaPropsFactory());
 
@@ -71,7 +110,7 @@ public class BermudaCounterService implements BermudaService {
   @Override
   public String getCsvString() throws JsonProcessingException {
     return csvMapper
-        .writer(BermudaTriangle.getCsvSchema())
+        .writer(this.getCsvSchema())
         .writeValueAsString(getBermudaTriangle());
   }
 
@@ -95,7 +134,7 @@ public class BermudaCounterService implements BermudaService {
     return Base64
         .getEncoder()
         .encodeToString(avroMapper
-            .writer(BermudaTriangle.getAvroSchema())
+            .writer(this.getAvroSchema())
             .writeValueAsBytes(getBermudaTriangle())
         );
   }

@@ -11,24 +11,22 @@ jobs:
     script:
     - "$PWD/scripts/clean-up.sh"
     - "$PWD/scripts/build-artifacts.sh || exit 101"
-    - mkdir -p $PWD/api-gateway/target/docs/postman || exit 102
-    - nvm install 8.11.3 || exit 103
-    - nvm use 8.11.3 || exit 104
-    - npm i -g restdocs-to-postman@v2.0.0  || exit 105
+    - "mkdir -p $PWD/api-gateway/target/docs/postman || exit 102"
+    - "nvm install 8.11.3 || exit 103"
+    - "nvm use 8.11.3 || exit 104"
+    - "npm i -g restdocs-to-postman@v2.0.0  || exit 105"
     - "$PWD/scripts/generate-postman.sh || exit 106"
-    - mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107
-    - docker run --rm -v $PWD:/playground -e 'APIMATIC_KEY=$APIMATIC_KEY' wgx731/gitlab-haile
-      ./scripts/generate-openapi.sh || exit 108
+    - "mkdir -p $PWD/api-gateway/target/docs/openapi || exit 107"
+    - "docker run --rm -v $PWD:/playground -e APIMATIC_KEY=$APIMATIC_KEY wgx731/gitlab-haile ./scripts/generate-openapi.sh || exit 108"
     - "$PWD/scripts/build-images.sh || exit 109"
     after_success:
     - "$PWD/scripts/make-release.sh || exit 200"
-    - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit
-      201
-    - docker push registry.heroku.com/dr-spring || exit 202
+    - "docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com || exit 201"
+    - "docker push registry.heroku.com/dr-spring || exit 202"
   - stage: test coverage and make release
     if: branch = dev
     script:
-    - "$PWD/scripts/test-coverage.sh || 300"
+    - "$PWD/scripts/test-coverage.sh || exit 300"
 env:
   global:
   - secure: f7Vt18/JgZzBP/h3p23QwveFugs5aWVgO3nMoS7d82k/CckgKkl/KmTghBQYaPJX6u6aW8MfiaKrMhuS8iCaGs4xCCzoEcdxf/wSBlbps+QkxWRlc8vEiP3G/xR/usLgFGflP2H4dcDR2U58ke6tCaVMsdTx+VxZzY0lvJEHlpExIYAGQG2cwz/o1J3fT9l2c3rSSMbPyueEQpcVleppx7XFtHkssouEp7kLEKPXI+Ka0B76lGKlUoS4JzIsvEpyXSlAFf83y7J7nUvB2FIC0fw8oMcj9TjjPUgmel/NGJHUu4G8NO5Y4s9wct4HdHblp1HRMREDxYtsKgPOCz3cxbNO0GPodHsa3kYyrxAVSBN4XI6c/rDsNwJHkgeEeWtG79dpStAn0YyFkycgNAmU1riZBrYhroDoA0VF/V11A8Q+Y+Yvsl40NMfJVNA0ubh3Wg222HrYc1MeQ4cokdqfhSinnjMSUEk1sHXQQemzTlKx5ngx5JIKRiX2MS24NFzJnwYr5QTOnEQ0pyFL5IwTZyh5v0qyhU28pRfv+X6lK3rX++bVlr+yIijODODPMNKPLDA+7bpTNYpjaFGj2LyyG+K5tfIYsHtUOzAtMBkSynx42T4b6raqlYXAibh9nOj4Spk7x24Jd87GTTNt8qWnAcfoTK8FeNf6W/QTTTHiLJk=
