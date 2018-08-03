@@ -34,7 +34,7 @@ git add pom.xml */pom.xml */application.properties || exit 61
 git commit -m "[RELEASE]: create release with version $RELEASE_VERSION in 'master' branch :octopus:" || exit 61
 git push || exit 61
 git tag v${RELEASE_VERSION} || exit 61
-git push origin v${RELEASE_VERSION} || exit 61
+git push -f origin v${RELEASE_VERSION} || exit 61
 
 echo "[MAKE-RELEASE] creating snapshot with version $SNAPSHOT_VERSION in 'dev' branch ..."
 git checkout dev || exit 62
