@@ -1,10 +1,10 @@
-= Dr. Spring Web REST Doc
+= Dr. Spring REST API Doc
 Wang Eric GaoXiang
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
 
-== Bermuda Counter REST Doc
+include::bermuda_counter.adoc[]
 
-include::bermuda.adoc[]
+include::bermuda_dubbo.adoc[]
 

@@ -110,6 +110,7 @@
   <modules>
     <module>dr-spring-common</module>
     <module>dr-spring-api</module>
+    <module>dr-spring-dubbo-provider</module>
   </modules>
 
   <build>
@@ -137,6 +138,9 @@
             </execution>
           </executions>
           <configuration>
+            <excludes>
+              <exclude>**/*DrSpring*.*</exclude>
+            </excludes>
             <rules>
               <rule>
                 <element>CLASS</element>
@@ -301,6 +305,11 @@
       <dependency>
         <groupId>com.alibaba.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>${dubbo-spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.boot</groupId>
+        <artifactId>dubbo-spring-boot-actuator</artifactId>
         <version>${dubbo-spring-boot.version}</version>
       </dependency>
       <dependency>

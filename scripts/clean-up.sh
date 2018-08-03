@@ -5,6 +5,7 @@ source $PWD/scripts/config.sh || exit 10
 
 echo "[CLEAN-UP] cleaning up docker image ..."
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+docker rmi -f registry.heroku.com/dr-spring
 docker rmi -f registry.heroku.com/dr-spring:${RELEASE_VERSION}
 docker rmi -f registry.heroku.com/dr-spring:${SNAPSHOT_VERSION}
 

@@ -1,0 +1,16 @@
+
+== Bermuda Dubbo REST API Doc
+
+=== Dubbo response
+
+- curl request:
+include::{snippets}/bermuda_dubbo/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/bermuda_dubbo/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/bermuda_dubbo/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/bermuda_dubbo/http-response.adoc[]

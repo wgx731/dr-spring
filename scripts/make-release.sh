@@ -7,6 +7,11 @@ function setAppVer {
         else
             sed -i "s/^info.app.version=.*/info.app.version=$1/g" ${i}
         fi
+        if [[ "$OS" == 'Darwin' ]]; then
+            sed -i "" "s/^dr-spring.dubbo.service.version=.*/dr-spring.dubbo.service.version=$1/g" ${i}
+        else
+            sed -i "s/^dr-spring.dubbo.service.version=.*/dr-spring.dubbo.service.version=$1/g" ${i}
+        fi
         grep -q "^info.app.version=.*" ${i} || echo "info.app.version=$1" >> ${i}
     done
 }
