@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
 import com.github.wgx731.common.service.BermudaConverterService;
-import com.github.wgx731.common.supplier.UUIDStringSupplier;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

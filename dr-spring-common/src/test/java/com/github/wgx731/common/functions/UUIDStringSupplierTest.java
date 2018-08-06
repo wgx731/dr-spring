@@ -1,4 +1,4 @@
-package com.github.wgx731.common.supplier;
+package com.github.wgx731.common.functions;
 
 import org.junit.After;
 import org.junit.Before;

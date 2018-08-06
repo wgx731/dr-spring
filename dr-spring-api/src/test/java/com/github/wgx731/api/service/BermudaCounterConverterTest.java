@@ -48,18 +48,18 @@ public class BermudaCounterConverterTest {
   public void getCsvSchema() {
     String schemaString = this.service.getCsvSchema().toString();
     assertThat(schemaString).contains(
-        "\"boolean\"/STRING,",
-        "\"byte\"/STRING,",
-        "\"bytes\"/STRING,",
-        "\"char\"/STRING,",
+        "\"boolean_value\"/STRING,",
+        "\"byte_value\"/STRING,",
+        "\"bytes_value\"/STRING,",
+        "\"char_value\"/STRING,",
+        "\"decimal_value\"/STRING,",
+        "\"double_value\"/STRING,",
+        "\"float_value\"/STRING,",
+        "\"int_value\"/STRING,",
+        "\"long_value\"/STRING,",
+        "\"short_value\"/STRING,",
+        "\"string_value\"/STRING,",
         "\"count\"/STRING,",
-        "\"decimal\"/STRING,",
-        "\"double\"/STRING,",
-        "\"float\"/STRING,",
-        "\"int\"/STRING,",
-        "\"long\"/STRING,",
-        "\"short\"/STRING,",
-        "\"string\"/STRING,",
         "\"uuid\"/STRING"
     );
     this.service.getCsvSchema();

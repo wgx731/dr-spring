@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.wgx731.proto";
+option java_outer_classname = "BermudaProto";
+option objc_class_prefix = "BMD";
+
+package bermuda;
+
+service BermudaService {
+    rpc getBermudaList (BermudaListRequest) returns (BermudaListReply) {
+    }
+}
+
+message BermudaListRequest {
+    int64 size = 1;
+}
+
+message BermudaListReply {
+    repeated BermudaReply reply = 1;
+}
+
+message BermudaReply {
+    string uuid = 1;
+    int32 count = 2;
+    bool booleanValue = 3;
+    sint32 intValue = 4;
+    sint64 longValue = 5;
+    float floatValue = 6;
+    double doubleValue = 7;
+    sfixed32 byteValue = 8;
+    sfixed32 shortValue = 9;
+    string charValue = 10;
+    BDecimal decimalValue = 11;
+    bytes bytesValue = 12;
+    string stringValue = 13;
+}
+
+message BDecimal {
+    int32 scale = 1;
+    BInteger int_val = 2;
+}
+
+message BInteger {
+    bytes value = 1;
+}

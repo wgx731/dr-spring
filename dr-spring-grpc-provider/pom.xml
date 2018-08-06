@@ -9,8 +9,8 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>dr-spring-dubbo-provider</artifactId>
-  <name>Dr. Spring Dubbo Provider</name>
+  <artifactId>dr-spring-grpc-provider</artifactId>
+  <name>Dr. Spring gRPC Provider</name>
 
   <dependencies>
     <dependency>
@@ -26,16 +26,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba.boot</groupId>
-      <artifactId>dubbo-spring-boot-starter</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba.boot</groupId>
-      <artifactId>dubbo-spring-boot-actuator</artifactId>
     </dependency>
   </dependencies>
 

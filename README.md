@@ -17,11 +17,12 @@ Dr. Spring
 
 ### Run single project
 
-`./mvnw -pl <project-name> clean package`
+`./mvnw -am -pl <project-name> clean package`
 
 ### Make release
 
-`./scripts/make-release.sh <new-version> <next-snapshot-version>`
+* update `RELEASE_VERSION` and `SNAPSHOT_VERSION` in `./scripts/config.sh`
+* `./scripts/make-release.sh`
 
 ## Contributing
 

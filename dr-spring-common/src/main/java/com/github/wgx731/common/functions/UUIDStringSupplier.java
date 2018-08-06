@@ -1,9 +1,9 @@
-package com.github.wgx731.common.supplier;
+package com.github.wgx731.common.functions;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class UUIDStringSupplier implements Supplier<String> {
+public final class UUIDStringSupplier implements Supplier<String> {
 
   @Override
   public String get() {
