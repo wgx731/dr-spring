@@ -150,6 +150,7 @@
           <configuration>
             <excludes>
               <exclude>**/*DrSpring*.*</exclude>
+              <exclude>**/proto/*</exclude>
             </excludes>
             <rules>
               <rule>
