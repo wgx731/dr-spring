@@ -20,9 +20,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.wgx731.common.pojo.BermudaTriangle;
 import com.github.wgx731.common.service.BermudaConverterService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class BermudaCounterConverter implements BermudaConverterService {
 
   public static final String SEPARATOR = "<-===->";

@@ -7,9 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.github.wgx731.api.BermudaListService;
 import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
-import com.github.wgx731.dubbo.api.BermudaListService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

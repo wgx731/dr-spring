@@ -120,7 +120,7 @@
     <module>dr-spring-common</module>
     <module>dr-spring-dubbo-provider</module>
     <module>dr-spring-grpc-provider</module>
-    <module>dr-spring-api</module>
+    <module>dr-spring-gateway</module>
   </modules>
 
   <build>
@@ -278,6 +278,20 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+              <configuration>
+                <classifier>exec</classifier>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -421,12 +435,17 @@
       </dependency>
       <dependency>
         <groupId>com.github.wgx731</groupId>
-        <artifactId>dr-spring-api</artifactId>
+        <artifactId>dr-spring-dubbo-provider</artifactId>
         <version>${dr-spring.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.wgx731</groupId>
-        <artifactId>dr-spring-dubbo-provider</artifactId>
+        <artifactId>dr-spring-grpc-provider</artifactId>
+        <version>${dr-spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.wgx731</groupId>
+        <artifactId>dr-spring-gateway</artifactId>
         <version>${dr-spring.version}</version>
       </dependency>
       <dependency>

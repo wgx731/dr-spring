@@ -9,10 +9,15 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>dr-spring-api</artifactId>
+  <artifactId>dr-spring-gateway</artifactId>
   <name>Dr. Spring API Gateway</name>
 
   <dependencies>
+
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.github.wgx731</groupId>
@@ -48,6 +53,18 @@
     <dependency>
       <groupId>org.springframework.restdocs</groupId>
       <artifactId>spring-restdocs-webtestclient</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-testing</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.wgx731</groupId>
+      <artifactId>dr-spring-grpc-provider</artifactId>
       <scope>test</scope>
     </dependency>
 

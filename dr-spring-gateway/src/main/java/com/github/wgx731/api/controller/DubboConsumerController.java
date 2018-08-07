@@ -1,7 +1,7 @@
 package com.github.wgx731.api.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.github.wgx731.dubbo.api.BermudaListService;
+import com.github.wgx731.api.BermudaListService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

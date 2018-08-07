@@ -8,3 +8,4 @@ include::bermuda_counter.adoc[]
 
 include::bermuda_dubbo.adoc[]
 
+include::bermuda_grpc.adoc[]
