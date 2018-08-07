@@ -75,7 +75,8 @@ public class DubboConsumerControllerTest {
   @Before
   public void setUp() throws Exception {
     given(this.service.getBermudaList(10)).willReturn(testCaseReturnValue);
-    this.controller = new DubboConsumerController(service);
+    this.controller = new DubboConsumerController();
+    this.controller.service = this.service;
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()
         .filter(documentationConfiguration(this.restDocumentation))

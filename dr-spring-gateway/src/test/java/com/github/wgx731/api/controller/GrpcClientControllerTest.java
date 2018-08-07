@@ -54,7 +54,11 @@ public class GrpcClientControllerTest {
     ManagedChannel channel = grpcCleanup.register(
         InProcessChannelBuilder.forName(serverName).directExecutor().build());
 
-    this.controller = new GrpcClientController(channel);
+    this.controller = new GrpcClientController();
+    this.controller.channel = channel;
+    this.controller.blockingStub = BermudaServiceGrpc.newBlockingStub(
+        this.controller.channel
+    );
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()
         .filter(documentationConfiguration(this.restDocumentation))

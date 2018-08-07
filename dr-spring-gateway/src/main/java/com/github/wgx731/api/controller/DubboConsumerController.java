@@ -2,10 +2,7 @@ package com.github.wgx731.api.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.wgx731.api.BermudaListService;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DubboConsumerController {
 
   public static final String BASE_PATH = "/api/bermuda/dubbo";
@@ -23,8 +19,7 @@ public class DubboConsumerController {
   @Reference(version = "${dr-spring.dubbo.service.version}",
       application = "${dubbo.application.id}",
       url = "${dubbo.url}")
-  @NonNull
-  private BermudaListService service;
+  BermudaListService service;
 
   /**
    * Bermuda List response.
