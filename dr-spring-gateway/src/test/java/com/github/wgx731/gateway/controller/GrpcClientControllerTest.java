@@ -61,11 +61,10 @@ public class GrpcClientControllerTest {
         .forName(serverName).directExecutor().addService(serviceImpl).build().start());
 
     // setup controller and test grpc client
-    this.grpcProperties = new GrpcProperties(
-        "127.0.0.1",
-        23456,
-        10
-    );
+    this.grpcProperties = new GrpcProperties();
+    this.grpcProperties.setHost("127.0.0.1");
+    this.grpcProperties.setPort(12347);
+    this.grpcProperties.setShutdownTimeout(5);
     this.controller = new GrpcClientController(this.grpcProperties);
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()
@@ -89,11 +88,10 @@ public class GrpcClientControllerTest {
   @Test
   public void testStart() throws InterruptedException {
     // test invalid host
-    GrpcProperties grpcProperties = new GrpcProperties(
-        null,
-        1,
-        1
-    );
+    GrpcProperties grpcProperties = new GrpcProperties();
+    grpcProperties.setHost(null);
+    grpcProperties.setPort(1066);
+    grpcProperties.setShutdownTimeout(10);
     GrpcClientController clientController = new GrpcClientController(
         grpcProperties
     );
@@ -106,11 +104,9 @@ public class GrpcClientControllerTest {
       );
     }
     // test invalid port
-    grpcProperties = new GrpcProperties(
-        "127.0.0.2",
-        65537,
-        100
-    );
+    grpcProperties.setHost("127.0.0.2");
+    grpcProperties.setPort(65537);
+    grpcProperties.setShutdownTimeout(10);
     clientController = new GrpcClientController(grpcProperties);
     try {
       clientController.start();
@@ -121,11 +117,9 @@ public class GrpcClientControllerTest {
       );
     }
     // test invalid timeout
-    grpcProperties = new GrpcProperties(
-        "127.0.0.2",
-        1026,
-        -1
-    );
+    grpcProperties.setHost("127.0.0.2");
+    grpcProperties.setPort(1026);
+    grpcProperties.setShutdownTimeout(-1);
     clientController = new GrpcClientController(grpcProperties);
     try {
       clientController.start();
@@ -136,11 +130,9 @@ public class GrpcClientControllerTest {
       );
     }
     // test valid grpc properties
-    grpcProperties = new GrpcProperties(
-        "127.0.0.1",
-        1028,
-        10
-    );
+    grpcProperties.setHost("127.0.0.1");
+    grpcProperties.setPort(1029);
+    grpcProperties.setShutdownTimeout(10);
     clientController = new GrpcClientController(grpcProperties);
     // channel null start
     clientController.start();
