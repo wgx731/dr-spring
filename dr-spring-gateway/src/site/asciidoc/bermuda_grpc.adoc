@@ -1,0 +1,16 @@
+
+== Bermuda gRPC REST API Doc
+
+=== gRPC response
+
+- curl request:
+include::{snippets}/bermuda_grpc/curl-request.adoc[]
+
+- httpie request:
+include::{snippets}/bermuda_grpc/httpie-request.adoc[]
+
+- HTTP request:
+include::{snippets}/bermuda_grpc/http-request.adoc[]
+
+- HTTP response:
+include::{snippets}/bermuda_grpc/http-response.adoc[]

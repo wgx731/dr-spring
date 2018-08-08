@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
-import com.github.wgx731.common.supplier.UUIDStringSupplier;
-import com.github.wgx731.dubbo.api.BermudaListService;
+import com.github.wgx731.gateway.BermudaListService;
 
 @Service(
     version = "${dr-spring.dubbo.service.version}",
@@ -24,7 +24,7 @@ public class BermudaListGenerator implements BermudaListService {
   private static Random random = new Random();
 
   @Override
-  public List<BermudaTriangle> getBermudaList(int size) {
+  public List<BermudaTriangle> getBermudaList(long size) {
     Stream<BermudaTriangle> stream = Stream.generate(() -> {
       BermudaTriangle instance = new BermudaTriangle();
       instance.setUuid(new UUIDStringSupplier().get());
@@ -38,10 +38,10 @@ public class BermudaListGenerator implements BermudaListService {
       instance.setShortValue(Short.MAX_VALUE);
       instance.setCharValue(Character.forDigit(random.nextInt(9), 10));
       instance.setDecimalValue(BigDecimal.valueOf(random.nextGaussian()));
-      byte[] bytes = "dr-spring".getBytes();
+      byte[] bytes = "dr-spring-dubbo-provider".getBytes();
       random.nextBytes(bytes);
       instance.setBytesValue(bytes);
-      instance.setStringValue("hello world from dr-spring!");
+      instance.setStringValue("hello world from dr-spring-dubbo-provider!");
       return instance;
     }).limit(size);
     return stream.collect(Collectors.toList());

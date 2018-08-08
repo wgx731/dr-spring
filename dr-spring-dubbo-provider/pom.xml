@@ -13,6 +13,10 @@
   <name>Dr. Spring Dubbo Provider</name>
 
   <dependencies>
+    <dependency>
+      <groupId>com.github.wgx731</groupId>
+      <artifactId>dr-spring-common</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -33,49 +37,15 @@
       <groupId>com.alibaba.boot</groupId>
       <artifactId>dubbo-spring-boot-actuator</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>com.github.wgx731</groupId>
-      <artifactId>dr-spring-common</artifactId>
-    </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <!-- select non-aggregate reports -->
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
 
 </project>

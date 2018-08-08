@@ -5,10 +5,12 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
 @Data
+@EqualsAndHashCode
 public class BermudaTriangle implements Serializable {
 
   @JsonProperty("uuid")
@@ -17,37 +19,37 @@ public class BermudaTriangle implements Serializable {
   @JsonProperty("count")
   private int count;
 
-  @JsonProperty("boolean")
+  @JsonProperty("boolean_value")
   private Boolean booleanValue;
 
-  @JsonProperty("int")
+  @JsonProperty("int_value")
   private Integer intValue;
 
-  @JsonProperty("long")
+  @JsonProperty("long_value")
   private Long longValue;
 
-  @JsonProperty("float")
+  @JsonProperty("float_value")
   private Float floatValue;
 
-  @JsonProperty("double")
+  @JsonProperty("double_value")
   private Double doubleValue;
 
-  @JsonProperty("byte")
+  @JsonProperty("byte_value")
   private Byte byteValue;
 
-  @JsonProperty("short")
+  @JsonProperty("short_value")
   private Short shortValue;
 
-  @JsonProperty("char")
+  @JsonProperty("char_value")
   private Character charValue;
 
-  @JsonProperty("decimal")
+  @JsonProperty("decimal_value")
   private BigDecimal decimalValue;
 
-  @JsonProperty("bytes")
+  @JsonProperty("bytes_value")
   private byte[] bytesValue;
 
-  @JsonProperty("string")
+  @JsonProperty("string_value")
   private String stringValue;
 
 }
