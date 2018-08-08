@@ -8,11 +8,11 @@ import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.inprocess.InProcessServerBuilder;
 import io.grpc.testing.GrpcCleanupRule;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,9 @@ import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static com.github.wgx731.gateway.controller.GrpcClientController.INVALID_GRPC_HOST_IN_GRPC_PROPERTIES;
+import static com.github.wgx731.gateway.controller.GrpcClientController.INVALID_GRPC_PORT_IN_GRPC_PROPERTIES;
+import static com.github.wgx731.gateway.controller.GrpcClientController.INVALID_GRPC_SHUTDOWN_TIMEOUT_IN_GRPC_PROPERTIES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
@@ -58,9 +61,11 @@ public class GrpcClientControllerTest {
         .forName(serverName).directExecutor().addService(serviceImpl).build().start());
 
     // setup controller and test grpc client
-    Mockito.when(this.grpcProperties.getHost()).thenReturn("127.0.0.1");
-    Mockito.when(this.grpcProperties.getPort()).thenReturn(12921);
-    Mockito.when(this.grpcProperties.getShutdownTimeout()).thenReturn(5);
+    this.grpcProperties = new GrpcProperties(
+        "127.0.0.1",
+        23456,
+        10
+    );
     this.controller = new GrpcClientController(this.grpcProperties);
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()
@@ -73,10 +78,98 @@ public class GrpcClientControllerTest {
   }
 
   @After
-  public void tearDown() {
+  public void tearDown() throws InterruptedException {
+    this.controller.shutdown();
+    this.grpcProperties = null;
     this.serviceImpl = null;
     this.controller = null;
     this.webTestClient = null;
+  }
+
+  @Test
+  public void testStart() throws InterruptedException {
+    // test invalid host
+    GrpcProperties grpcProperties = new GrpcProperties(
+        null,
+        1,
+        1
+    );
+    GrpcClientController clientController = new GrpcClientController(
+        grpcProperties
+    );
+    try {
+      clientController.start();
+      Assert.fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e.getMessage()).contains(
+          INVALID_GRPC_HOST_IN_GRPC_PROPERTIES
+      );
+    }
+    // test invalid port
+    grpcProperties = new GrpcProperties(
+        "127.0.0.2",
+        65537,
+        100
+    );
+    clientController = new GrpcClientController(grpcProperties);
+    try {
+      clientController.start();
+      Assert.fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e.getMessage()).contains(
+          INVALID_GRPC_PORT_IN_GRPC_PROPERTIES
+      );
+    }
+    // test invalid timeout
+    grpcProperties = new GrpcProperties(
+        "127.0.0.2",
+        1026,
+        -1
+    );
+    clientController = new GrpcClientController(grpcProperties);
+    try {
+      clientController.start();
+      Assert.fail();
+    } catch (IllegalArgumentException e) {
+      assertThat(e.getMessage()).contains(
+          INVALID_GRPC_SHUTDOWN_TIMEOUT_IN_GRPC_PROPERTIES
+      );
+    }
+    // test valid grpc properties
+    grpcProperties = new GrpcProperties(
+        "127.0.0.1",
+        1028,
+        10
+    );
+    clientController = new GrpcClientController(grpcProperties);
+    // channel null start
+    clientController.start();
+    clientController.shutdown();
+    // null in startTest
+    clientController.startTest(null);
+    clientController.shutdown();
+    // channel not null start
+    clientController.channel = grpcCleanup.register(
+        InProcessChannelBuilder.forName(
+            InProcessServerBuilder.generateName()
+        ).directExecutor().build());
+    clientController.start();
+    clientController.shutdown();
+    // wrong channel start
+    clientController.startTest(grpcCleanup.register(
+        InProcessChannelBuilder.forName(
+            InProcessServerBuilder.generateName()
+        ).directExecutor().build())
+    );
+    try {
+      clientController.getBermudaList(10);
+      Assert.fail();
+    } catch (InternalError e) {
+      assertThat(e.getMessage()).contains(
+          "UNAVAILABLE"
+      );
+    }
+    clientController.shutdown();
   }
 
   @Test

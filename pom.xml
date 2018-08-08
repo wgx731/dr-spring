@@ -191,6 +191,7 @@
               <phase>validate</phase>
               <configuration>
                 <configLocation>src/checkstyle/checkstyle.xml</configLocation>
+                <suppressionsLocation>src/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
                 <propertyExpansion>main.basedir=${main.basedir}</propertyExpansion>
                 <encoding>UTF-8</encoding>
                 <failsOnError>true</failsOnError>

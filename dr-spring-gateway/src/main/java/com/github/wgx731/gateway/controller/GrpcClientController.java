@@ -1,6 +1,5 @@
 package com.github.wgx731.gateway.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -24,12 +23,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GrpcClientController {
 
+  public static final String INVALID_GRPC_HOST_IN_GRPC_PROPERTIES
+      = "Invalid grpc.host in grpc.properties";
+  public static final String INVALID_GRPC_PORT_IN_GRPC_PROPERTIES
+      = "Invalid grpc.port in grpc.properties";
+  public static final String INVALID_GRPC_SHUTDOWN_TIMEOUT_IN_GRPC_PROPERTIES
+      = "Invalid grpc.shutdown.timeout in grpc.properties";
+
   public static final String BASE_PATH = "/gateway/bermuda/grpc";
+
   static final String JSON_CONTENT_TYPE = "application/json";
   static final BermudaListProtoToPojo translator = new BermudaListProtoToPojo();
 
@@ -46,40 +54,56 @@ public class GrpcClientController {
    */
   @PostConstruct
   public void start() {
-    String grpcHost = grpcProperties.getHost();
-    int grpcPort = grpcProperties.getPort();
-    if (grpcHost == null) {
+    log.info(String.format("grpc properties: %s", grpcProperties.toString()));
+    if (!this.grpcProperties.isHostValid()) {
       throw new IllegalArgumentException(
-          "Missing grpc.host in application.properties"
+          String.format(
+              "%s host - %s",
+              INVALID_GRPC_HOST_IN_GRPC_PROPERTIES,
+              this.grpcProperties.getHost()
+          )
       );
     }
-    if (grpcPort == -1) {
+    if (!this.grpcProperties.isPortValid()) {
       throw new IllegalArgumentException(
-          "Missing grpc.port in application.properties"
+          String.format(
+              "%s port - %d",
+              INVALID_GRPC_PORT_IN_GRPC_PROPERTIES,
+              this.grpcProperties.getPort()
+          )
       );
     }
-    if (grpcProperties.getShutdownTimeout() == -1) {
+    if (!this.grpcProperties.isShutDownTimeoutValid()) {
       throw new IllegalArgumentException(
-          "Missing grpc.shutdown.timeout in application.properties"
+          String.format(
+              "%s shutdown timeout - %d",
+              INVALID_GRPC_SHUTDOWN_TIMEOUT_IN_GRPC_PROPERTIES,
+              this.grpcProperties.getShutdownTimeout()
+          )
       );
     }
     if (channel != null) {
       channel = ManagedChannelBuilder.forAddress(
-          grpcHost,
-          grpcPort
+          this.grpcProperties.getHost(),
+          this.grpcProperties.getPort()
       ).usePlaintext().build();
       blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
+    } else {
+      log.warn("channel is [null] in start.");
     }
   }
 
   /**
    * Method to shutdown grpc client channel with timeout.
+   *
    * @throws InterruptedException exception when interrupted
    */
   @PreDestroy
   public void shutdown() throws InterruptedException {
     if (channel != null) {
       channel.shutdown().awaitTermination(grpcProperties.getShutdownTimeout(), TimeUnit.SECONDS);
+    } else {
+      log.warn("chanel is [null] in shutdown.");
     }
   }
 
@@ -87,16 +111,18 @@ public class GrpcClientController {
     if (channel != null) {
       this.channel = channel;
       blockingStub = BermudaServiceGrpc.newBlockingStub(this.channel);
+    } else {
+      log.warn("chanel is [null] in startTest.");
     }
   }
 
-  private List<BermudaTriangle> getBermudaListFromgRpc(long size) {
+  List<BermudaTriangle> getBermudaListFromgRpc(long size) {
     BermudaListRequest request = BermudaListRequest.newBuilder().setSize(size).build();
     BermudaListReply reply;
     try {
       reply = blockingStub.getBermudaList(request);
     } catch (StatusRuntimeException e) {
-      log.error("RPC failed: ", e.getStatus());
+      log.error(String.format("RPC failed: %s", e.getStatus()));
       throw new InternalError(e.getStatus().toString());
     }
     return translator.apply(reply);
