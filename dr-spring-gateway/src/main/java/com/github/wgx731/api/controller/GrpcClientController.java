@@ -1,5 +1,11 @@
 package com.github.wgx731.api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import com.github.wgx731.common.functions.BermudaListProtoToPojo;
 import com.github.wgx731.common.pojo.BermudaTriangle;
 import com.github.wgx731.proto.BermudaListReply;
@@ -14,12 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -41,7 +41,8 @@ public class GrpcClientController {
   @Value("${grpc.shutdown.timeout:-1}")
   private int grpcShutdownTimeout;
 
-  /*
+  /**
+   * Method to start grpc client channel.
    * NOTE: we assume connection between gateway and grpc provider is secure,
    * therefore plain text connection is used here.
    */
@@ -69,6 +70,10 @@ public class GrpcClientController {
     blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
   }
 
+  /**
+   * Method to shutdown grpc client channel with timeout.
+   * @throws InterruptedException exception when interrupted
+   */
   @PreDestroy
   public void shutdown() throws InterruptedException {
     channel.shutdown().awaitTermination(grpcShutdownTimeout, TimeUnit.SECONDS);
