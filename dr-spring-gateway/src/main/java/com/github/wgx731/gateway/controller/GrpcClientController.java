@@ -1,4 +1,4 @@
-package com.github.wgx731.api.controller;
+package com.github.wgx731.gateway.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,17 @@ import javax.annotation.PreDestroy;
 
 import com.github.wgx731.common.functions.BermudaListProtoToPojo;
 import com.github.wgx731.common.pojo.BermudaTriangle;
+import com.github.wgx731.gateway.properties.GrpcProperties;
 import com.github.wgx731.proto.BermudaListReply;
 import com.github.wgx731.proto.BermudaListRequest;
 import com.github.wgx731.proto.BermudaServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,23 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GrpcClientController {
 
-  public static final String BASE_PATH = "/api/bermuda/grpc";
+  public static final String BASE_PATH = "/gateway/bermuda/grpc";
   static final String JSON_CONTENT_TYPE = "application/json";
   static final BermudaListProtoToPojo translator = new BermudaListProtoToPojo();
 
   ManagedChannel channel;
   BermudaServiceGrpc.BermudaServiceBlockingStub blockingStub;
 
-  @Value("${grpc.host:null}")
-  private String grpcHost;
-
-  @Value("${grpc.port:-1}")
-  private int grpcPort;
-
-  @Value("${grpc.shutdown.timeout:-1}")
-  private int grpcShutdownTimeout;
+  @NonNull
+  private GrpcProperties grpcProperties;
 
   /**
    * Method to start grpc client channel.
@@ -48,6 +46,8 @@ public class GrpcClientController {
    */
   @PostConstruct
   public void start() {
+    String grpcHost = grpcProperties.getHost();
+    int grpcPort = grpcProperties.getPort();
     if (grpcHost == null) {
       throw new IllegalArgumentException(
           "Missing grpc.host in application.properties"
@@ -58,16 +58,18 @@ public class GrpcClientController {
           "Missing grpc.port in application.properties"
       );
     }
-    if (grpcShutdownTimeout == -1) {
+    if (grpcProperties.getShutdownTimeout() == -1) {
       throw new IllegalArgumentException(
           "Missing grpc.shutdown.timeout in application.properties"
       );
     }
-    channel = ManagedChannelBuilder.forAddress(
-        grpcHost,
-        grpcPort
-    ).usePlaintext().build();
-    blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
+    if (channel != null) {
+      channel = ManagedChannelBuilder.forAddress(
+          grpcHost,
+          grpcPort
+      ).usePlaintext().build();
+      blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
+    }
   }
 
   /**
@@ -76,7 +78,16 @@ public class GrpcClientController {
    */
   @PreDestroy
   public void shutdown() throws InterruptedException {
-    channel.shutdown().awaitTermination(grpcShutdownTimeout, TimeUnit.SECONDS);
+    if (channel != null) {
+      channel.shutdown().awaitTermination(grpcProperties.getShutdownTimeout(), TimeUnit.SECONDS);
+    }
+  }
+
+  void startTest(ManagedChannel channel) {
+    if (channel != null) {
+      this.channel = channel;
+      blockingStub = BermudaServiceGrpc.newBlockingStub(this.channel);
+    }
   }
 
   private List<BermudaTriangle> getBermudaListFromgRpc(long size) {
@@ -85,8 +96,8 @@ public class GrpcClientController {
     try {
       reply = blockingStub.getBermudaList(request);
     } catch (StatusRuntimeException e) {
-      log.warn("RPC failed: {0}", e.getStatus());
-      return new ArrayList<>();
+      log.error("RPC failed: ", e.getStatus());
+      throw new InternalError(e.getStatus().toString());
     }
     return translator.apply(reply);
   }

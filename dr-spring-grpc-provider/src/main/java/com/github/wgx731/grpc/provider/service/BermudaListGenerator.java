@@ -7,10 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.github.wgx731.api.BermudaListService;
 import com.github.wgx731.common.functions.BermudaListPojoToProto;
 import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
+import com.github.wgx731.gateway.BermudaListService;
 import com.github.wgx731.proto.BermudaListReply;
 import com.github.wgx731.proto.BermudaListRequest;
 import com.github.wgx731.proto.BermudaServiceGrpc;

@@ -1,4 +1,4 @@
-package com.github.wgx731.api.controller;
+package com.github.wgx731.gateway.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.github.wgx731.api.BermudaListService;
 import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
+import com.github.wgx731.gateway.BermudaListService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
-
 
 @RunWith(SpringRunner.class)
 @SuppressWarnings("checkstyle:JavadocMethod")

@@ -1,5 +1,6 @@
-package com.github.wgx731.api.controller;
+package com.github.wgx731.gateway.controller;
 
+import com.github.wgx731.gateway.properties.GrpcProperties;
 import com.github.wgx731.grpc.provider.service.BermudaListGenerator;
 import com.github.wgx731.proto.BermudaServiceGrpc;
 import io.grpc.ManagedChannel;
@@ -11,6 +12,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.JUnitRestDocumentation;
@@ -34,6 +37,9 @@ public class GrpcClientControllerTest {
       "target/docs/rest/snippets"
   );
 
+  @MockBean
+  private GrpcProperties grpcProperties;
+
   private BermudaServiceGrpc.BermudaServiceImplBase serviceImpl;
 
   private GrpcClientController controller;
@@ -42,6 +48,7 @@ public class GrpcClientControllerTest {
 
   @Before
   public void setUp() throws Exception {
+    // setup test grpc server
     this.serviceImpl = new BermudaListGenerator();
     // Generate a unique in-process server name.
     String serverName = InProcessServerBuilder.generateName();
@@ -50,23 +57,23 @@ public class GrpcClientControllerTest {
     grpcCleanup.register(InProcessServerBuilder
         .forName(serverName).directExecutor().addService(serviceImpl).build().start());
 
-    // Create a client channel and register for automatic graceful shutdown.
-    ManagedChannel channel = grpcCleanup.register(
-        InProcessChannelBuilder.forName(serverName).directExecutor().build());
-
-    this.controller = new GrpcClientController();
-    this.controller.channel = channel;
-    this.controller.blockingStub = BermudaServiceGrpc.newBlockingStub(
-        this.controller.channel
-    );
+    // setup controller and test grpc client
+    Mockito.when(this.grpcProperties.getHost()).thenReturn("127.0.0.1");
+    Mockito.when(this.grpcProperties.getPort()).thenReturn(12921);
+    Mockito.when(this.grpcProperties.getShutdownTimeout()).thenReturn(5);
+    this.controller = new GrpcClientController(this.grpcProperties);
     this.webTestClient = WebTestClient.bindToController(controller)
         .configureClient()
         .filter(documentationConfiguration(this.restDocumentation))
         .build();
+    // Create a client channel and register for automatic graceful shutdown.
+    ManagedChannel channel = grpcCleanup.register(
+        InProcessChannelBuilder.forName(serverName).directExecutor().build());
+    this.controller.startTest(channel);
   }
 
   @After
-  public void tearDown() throws Exception {
+  public void tearDown() {
     this.serviceImpl = null;
     this.controller = null;
     this.webTestClient = null;

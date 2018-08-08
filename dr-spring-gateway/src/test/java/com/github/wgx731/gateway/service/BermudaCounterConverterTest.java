@@ -1,4 +1,4 @@
-package com.github.wgx731.api.service;
+package com.github.wgx731.gateway.service;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.github.wgx731.common.service.BermudaConverterService;

@@ -1,4 +1,4 @@
-package com.github.wgx731.api;
+package com.github.wgx731.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

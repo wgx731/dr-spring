@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.github.wgx731.api.BermudaListService;
 import com.github.wgx731.common.functions.UUIDStringSupplier;
 import com.github.wgx731.common.pojo.BermudaTriangle;
+import com.github.wgx731.gateway.BermudaListService;
 
 @Service(
     version = "${dr-spring.dubbo.service.version}",

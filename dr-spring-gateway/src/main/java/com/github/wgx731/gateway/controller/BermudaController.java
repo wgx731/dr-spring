@@ -1,4 +1,4 @@
-package com.github.wgx731.api.controller;
+package com.github.wgx731.gateway.controller;
 
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BermudaController {
 
-  public static final String BASE_PATH = "/api/bermuda";
+  public static final String BASE_PATH = "/gateway/bermuda";
 
   private static AtomicInteger counter = new AtomicInteger(0);
 

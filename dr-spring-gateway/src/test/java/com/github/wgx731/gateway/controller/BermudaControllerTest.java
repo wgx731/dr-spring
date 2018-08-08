@@ -1,7 +1,7 @@
-package com.github.wgx731.api.controller;
+package com.github.wgx731.gateway.controller;
 
-import com.github.wgx731.api.service.BermudaCounterConverter;
 import com.github.wgx731.common.service.BermudaConverterService;
+import com.github.wgx731.gateway.service.BermudaCounterConverter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

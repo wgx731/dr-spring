@@ -1,4 +1,4 @@
-package com.github.wgx731.api.service;
+package com.github.wgx731.gateway.service;
 
 import java.util.Base64;
 

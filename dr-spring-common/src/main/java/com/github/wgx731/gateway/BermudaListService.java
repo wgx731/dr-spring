@@ -1,4 +1,4 @@
-package com.github.wgx731.api;
+package com.github.wgx731.gateway;
 
 import java.util.List;
 
