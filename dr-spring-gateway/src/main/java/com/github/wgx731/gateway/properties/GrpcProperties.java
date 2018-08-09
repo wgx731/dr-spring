@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,9 +15,8 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:grpc.properties")
 @ConfigurationProperties(prefix = "grpc")
-@Getter
 @ToString
-@AllArgsConstructor
+@Data
 public class GrpcProperties {
 
   public static final String IP_REGEX = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
