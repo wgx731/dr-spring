@@ -11,9 +11,14 @@ REQUEST=$4 # number of total request made: (e.g. 10000)
 
 echo "[AB-PERFORMANCE] concurrency - $CONCURRENCY"
 echo "[AB-PERFORMANCE] requests - $REQUEST"
-echo "[AB-PERFORMANCE] testing generating $NUM data with $PROVIDER"
+
+OUTPUT_DIR=${PWD}/performance/${PROVIDER}
+echo "[AB-PERFORMANCE] creating $OUTPUT_DIR ..."
+mkdir -p ${OUTPUT_DIR}
+
+echo "[AB-PERFORMANCE] testing generating $NUM data with $PROVIDER ..."
 ab \
     -c ${CONCURRENCY} \
     -n ${REQUEST} \
-    -g ${PWD}/performance/${PROVIDER}_${NUM}_${CONCURRENCY}_${REQUEST}.dat \
-    "$URL_BASE/$PROVIDER/$NUM" > ${PWD}/performance/${PROVIDER}_${NUM}_${CONCURRENCY}_${REQUEST}.txt
+    -g ${OUTPUT_DIR}/${PROVIDER}_${NUM}_${CONCURRENCY}_${REQUEST}.dat \
+    "$URL_BASE/$PROVIDER/$NUM" > ${OUTPUT_DIR}/${PROVIDER}_${NUM}_${CONCURRENCY}_${REQUEST}.txt
