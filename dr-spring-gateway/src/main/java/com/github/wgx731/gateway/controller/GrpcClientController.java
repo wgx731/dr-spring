@@ -82,15 +82,11 @@ public class GrpcClientController {
           )
       );
     }
-    if (channel != null) {
-      channel = ManagedChannelBuilder.forAddress(
-          this.grpcProperties.getHost(),
-          this.grpcProperties.getPort()
-      ).usePlaintext().build();
-      blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
-    } else {
-      log.warn("channel is [null] in start.");
-    }
+    channel = ManagedChannelBuilder.forAddress(
+        this.grpcProperties.getHost(),
+        this.grpcProperties.getPort()
+    ).usePlaintext().build();
+    blockingStub = BermudaServiceGrpc.newBlockingStub(channel);
   }
 
   /**

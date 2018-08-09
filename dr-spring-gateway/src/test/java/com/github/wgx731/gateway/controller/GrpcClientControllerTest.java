@@ -140,13 +140,6 @@ public class GrpcClientControllerTest {
     // null in startTest
     clientController.startTest(null);
     clientController.shutdown();
-    // channel not null start
-    clientController.channel = grpcCleanup.register(
-        InProcessChannelBuilder.forName(
-            InProcessServerBuilder.generateName()
-        ).directExecutor().build());
-    clientController.start();
-    clientController.shutdown();
     // wrong channel start
     clientController.startTest(grpcCleanup.register(
         InProcessChannelBuilder.forName(
