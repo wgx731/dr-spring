@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:grpc.properties")
 @ConfigurationProperties(prefix = "grpc")
 @ToString
 @Data
@@ -22,7 +21,7 @@ public class GrpcProperties {
   public static final String IP_REGEX = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
       + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
       + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
-      + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+      + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$|^dr-spring-grpc-provider$";
 
   static final java.util.regex.Pattern IP_REGEX_PATTERN
       = java.util.regex.Pattern.compile(IP_REGEX);

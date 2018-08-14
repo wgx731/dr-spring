@@ -1,0 +1,66 @@
+version: "3"
+services:
+  # NOTE: H - host, C - container
+
+  dr-spring-dubbo-provider:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: jars/dr-spring-dubbo-provider-*.jar
+        START_FILE: start.sh
+    image: dr-spring-dubbo-provider
+    ports:
+      - "$DUBBO_WEB_H_PORT:$DUBBO_WEB_C_PORT"
+      - "$DUBBO_MM_H_PORT:$DUBBO_MM_C_PORT"
+      - "$DUBBO_APP_H_PORT:$DUBBO_APP_C_PORT"
+      - "$DUBBO_QOS_H_PORT:$DUBBO_QOS_C_PORT"
+    networks:
+      - dr-spring-network
+    volumes:
+      - ${PWD}/config:/runner/config
+      - ${PWD}/config/dr-spring-gateway.properties:/runner/config/application.properties
+
+  dr-spring-grpc-provider:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: jars/dr-spring-grpc-provider-*.jar
+        START_FILE: start.sh
+    image: dr-spring-grpc-provider
+    ports:
+      - "$GRPC_APP_H_PORT:$GRPC_APP_C_PORT"
+    networks:
+      - dr-spring-network
+    volumes:
+      - ${PWD}/config:/runner/config
+      - ${PWD}/config/dr-spring-gateway.properties:/runner/config/application.properties
+    env_file:
+      - ${PWD}/config/grpc.env
+
+
+  dr-spring-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: jars/dr-spring-gateway-*.jar
+        START_FILE: start.sh
+    image: dr-spring-gateway
+    depends_on:
+      - dr-spring-dubbo-provider
+      - dr-spring-grpc-provider
+    command: bash -c "sleep 5 && ./start.sh"
+    ports:
+      - "$GATEWAY_WEB_H_PORT:$GATEWAY_WEB_C_PORT"
+      - "$GATEWAY_MM_H_PORT:$GATEWAY_MM_C_PORT"
+    networks:
+      - dr-spring-network
+    volumes:
+      - ${PWD}/config:/runner/config
+      - ${PWD}/config/dr-spring-gateway.properties:/runner/config/application.properties
+
+networks:
+  dr-spring-network:
+    driver: bridge

@@ -12,7 +12,7 @@ REQUEST=$4 # number of total request made: (e.g. 10000)
 echo "[AB-PERFORMANCE] concurrency - $CONCURRENCY"
 echo "[AB-PERFORMANCE] requests - $REQUEST"
 
-OUTPUT_DIR=${PWD}/performance/${PROVIDER}
+OUTPUT_DIR=${PWD}/local/performance/${PROVIDER}
 echo "[AB-PERFORMANCE] creating $OUTPUT_DIR ..."
 mkdir -p ${OUTPUT_DIR}
 
