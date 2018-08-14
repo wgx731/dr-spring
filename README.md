@@ -11,13 +11,17 @@ Dr. Spring
 
 ## User Guide
 
-### Run all projects
+### Clean up
 
-`./mvnw clean package`
+`./scripts/clean-up.sh`
 
-### Run single project
+### Build artifacts
 
-`./mvnw -am -pl <project-name> clean package`
+`./scripts/build-artifacts.sh`
+
+### Build docker images
+
+`./scripts/build-images.sh`
 
 ### Make release
 
