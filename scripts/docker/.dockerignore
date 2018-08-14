@@ -1,0 +1,12 @@
+
+# ignore checkstyle files
+*.xml
+
+# ignore site folder
+site/
+
+# ignore compose file
+docker-compose.yml
+
+# ignore docker file
+Dockerfile

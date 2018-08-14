@@ -9,8 +9,11 @@ $PWD/mvnw clean verify package || exit 21
 echo "[BUILD-ARTIFACTS] packaging artifacts ..."
 for module in ${MODULES}
 do
-    cp $PWD/${module}/target/${module}-*.jar \
-        $PWD/target || exit 22
+    mkdir -p $PWD/target/jars || exit 22
+    if [ -f $PWD/${module}/target/${module}-*-exec.jar ]; then
+        cp $PWD/${module}/target/${module}-*-exec.jar \
+            $PWD/target/jars || exit 22
+    fi
     if [ -d "$PWD/${module}/target/site" ]; then
       mkdir -p $PWD/target/site/${module} || exit 22
       cp -R $PWD/${module}/target/site/* \
