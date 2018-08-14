@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "[CLEAN-UP] source config.sh ..."
-source $PWD/scripts/config.sh || exit 10
+source ${PWD}/scripts/config.sh || exit 10
 
 echo "[CLEAN-UP] cleaning up docker image ..."
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
@@ -27,4 +27,4 @@ docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
 docker network prune -f
 
 echo "[CLEAN-UP] cleaning up target folder ..."
-$PWD/mvnw clean || exit 11
+${PWD}/mvnw clean || exit 11
