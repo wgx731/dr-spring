@@ -46,7 +46,7 @@ public class GrpcProperties {
    * @return true if valid host otherwise false
    */
   public boolean isHostValid() {
-    return host != null && IP_REGEX_PATTERN.matcher(host).matches();
+    return host == null ? false : IP_REGEX_PATTERN.matcher(host).matches();
   }
 
   /**

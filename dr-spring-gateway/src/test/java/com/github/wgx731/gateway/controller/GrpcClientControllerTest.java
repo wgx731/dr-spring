@@ -108,6 +108,7 @@ public class GrpcClientControllerTest {
     grpcProperties.setPort(65537);
     grpcProperties.setShutdownTimeout(10);
     clientController = new GrpcClientController(grpcProperties);
+    clientController.shutdown();
     try {
       clientController.start();
       Assert.fail();
