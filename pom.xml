@@ -49,8 +49,10 @@
     <coverage.threshold>0.85</coverage.threshold>
 
     <os>unix</os>
-    <maven.version>3.3.0</maven.version>
     <java.version>10</java.version>
+    <scala.verion>2.12</scala.verion>
+
+    <maven.version>3.3.0</maven.version>
 
     <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
     <dr-spring.version>1.3.5</dr-spring.version>
@@ -60,17 +62,19 @@
     <lombok.version>1.18.0</lombok.version>
     <woodstox.version>5.1.0</woodstox.version>
     <stax2-api.version>4.1</stax2-api.version>
-    <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
 
     <jacoco.version>0.8.1</jacoco.version>
     <checkstyle.version>8.5</checkstyle.version>
     <findbugs.version>3.0.2</findbugs.version>
     <junit-quickcheck.version>0.8.1</junit-quickcheck.version>
 
+    <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
+
     <grpc.version>1.14.0</grpc.version>
     <protobuf.version>3.5.1</protobuf.version>
     <protoc.version>3.5.1-1</protoc.version>
 
+    <alpakka.version>0.20</alpakka.version>
     <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
     <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
     <asciidoctor-maven-plugin.version>1.5.6</asciidoctor-maven-plugin.version>
@@ -506,6 +510,11 @@
         <groupId>javax.annotation</groupId>
         <artifactId>javax.annotation-api</artifactId>
         <version>${javax-annotation.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lightbend.akka</groupId>
+        <artifactId>akka-stream-alpakka-spring-web_${scala.verion}</artifactId>
+        <version>${alpakka.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.wgx731</groupId>

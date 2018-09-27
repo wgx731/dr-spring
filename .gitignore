@@ -384,4 +384,4 @@ typings/
 ###################################################
 .g8
 !scripts/
-local/
+local/performance

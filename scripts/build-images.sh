@@ -37,6 +37,8 @@ echo "[BUILD-IMAGES] build image ..."
 BASE_DIR=${PWD}
 cd ${BASE_DIR}/target || exit 51
 cp -R ${BASE_DIR}/scripts/docker/* ./ || exit 51
+cp -R ${BASE_DIR}/local/config.sample ./config || exit 51
+source ${BASE_DIR}/local/ports.sh || exit 51
 docker-compose build || exit 51
 cd ${BASE_DIR} || exit 51
 

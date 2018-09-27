@@ -1,6 +1,7 @@
 package com.github.wgx731.grpc.provider.service;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,7 +44,7 @@ public class BermudaListGenerator
       instance.setShortValue(Short.MIN_VALUE);
       instance.setCharValue(Character.forDigit(random.nextInt(9), 10));
       instance.setDecimalValue(BigDecimal.valueOf(random.nextGaussian()));
-      byte[] bytes = "dr-spring-grpc-provider".getBytes();
+      byte[] bytes = "dr-spring-grpc-provider".getBytes(StandardCharsets.UTF_8);
       random.nextBytes(bytes);
       instance.setBytesValue(bytes);
       instance.setStringValue("hello world from dr-spring-grpc-provider!");
