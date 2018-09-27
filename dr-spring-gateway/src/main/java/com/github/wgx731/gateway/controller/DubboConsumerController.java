@@ -22,7 +22,7 @@ public class DubboConsumerController {
   BermudaListService service;
 
   /**
-   * Bermuda List response.
+   * Dubbo Bermuda List response.
    *
    * @return Bermuda List response
    */

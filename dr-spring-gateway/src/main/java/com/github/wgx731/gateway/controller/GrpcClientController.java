@@ -125,7 +125,7 @@ public class GrpcClientController {
   }
 
   /**
-   * Bermuda List response.
+   * Grpc Bermuda List response.
    *
    * @return Bermuda List response
    */

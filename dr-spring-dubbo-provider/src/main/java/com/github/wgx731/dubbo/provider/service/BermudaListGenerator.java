@@ -1,10 +1,5 @@
 package com.github.wgx731.dubbo.provider.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
-import com.github.wgx731.common.functions.UUIDStringSupplier;
-import com.github.wgx731.common.pojo.BermudaTriangle;
-import com.github.wgx731.gateway.BermudaListService;
-
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -12,6 +7,11 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.github.wgx731.common.functions.UUIDStringSupplier;
+import com.github.wgx731.common.pojo.BermudaTriangle;
+import com.github.wgx731.gateway.BermudaListService;
 
 @Service(
     version = "${dr-spring.dubbo.service.version}",
