@@ -10,6 +10,9 @@ services:
 
 jobs:
   include:
+  - stage: sonar check
+    script:
+    - "mvn sonar:sonar -Dsonar.projectKey=wgx731_dr-spring -Dsonar.organization=wgx731-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=2c841bb7b67fe6f4eaff901ced1849a173efa011 || exit 107"
   - stage: build artifact and documentation
     if: branch = master
     script:
@@ -20,7 +23,6 @@ jobs:
     - nvm use 8.11.3 || exit 104
     - npm i -g restdocs-to-postman@v2.0.0  || exit 105
     - "$PWD/scripts/generate-postman.sh || exit 106"
-    - "mvn sonar:sonar -Dsonar.projectKey=wgx731_dr-spring -Dsonar.organization=wgx731-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=2c841bb7b67fe6f4eaff901ced1849a173efa011 || exit 107"
   - stage: test coverage and make release
     if: branch = dev
     script:
