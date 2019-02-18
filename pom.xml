@@ -58,7 +58,8 @@
     <dr-spring.version>1.3.6</dr-spring.version>
 
     <assertj.version>3.9.1</assertj.version>
-    <jackson.version>2.9.6</jackson.version>
+    <jackson.version>2.9.8</jackson.version>
+    <snakeyaml.version>1.23</snakeyaml.version>
     <lombok.version>1.18.0</lombok.version>
     <woodstox.version>5.1.0</woodstox.version>
     <stax2-api.version>4.1</stax2-api.version>
@@ -416,6 +417,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+          <version>${snakeyaml.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.dataformat</groupId>
         <artifactId>jackson-dataformat-properties</artifactId>
