@@ -65,7 +65,7 @@
     <stax2-api.version>4.1</stax2-api.version>
 
     <jacoco.version>0.8.1</jacoco.version>
-    <checkstyle.version>8.5</checkstyle.version>
+    <checkstyle.version>8.18</checkstyle.version>
     <findbugs.version>3.0.2</findbugs.version>
     <junit-quickcheck.version>0.8.1</junit-quickcheck.version>
 
