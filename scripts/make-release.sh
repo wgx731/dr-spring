@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function setAppVer {
-    for i in `find . -name "*.properties"`; do
+    for i in `find . -name "application.properties"`; do
         if [[ "$OS" == 'Darwin' ]]; then
             sed -i "" "s/^info.app.version=.*/info.app.version=$1/g" ${i}
         else
