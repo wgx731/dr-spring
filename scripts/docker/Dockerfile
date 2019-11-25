@@ -1,4 +1,4 @@
-FROM openjdk:10-jdk-slim
+FROM openjdk:8-jdk-slim
 MAINTAINER Wang Eric GaoXiang <wgx731@gmail.com>
 
 # create runner user and runner directory

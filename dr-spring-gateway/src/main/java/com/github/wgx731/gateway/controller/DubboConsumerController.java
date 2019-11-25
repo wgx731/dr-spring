@@ -1,8 +1,8 @@
 package com.github.wgx731.gateway.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.wgx731.gateway.BermudaListService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
