@@ -35,23 +35,13 @@
     </dependency>
 
     <dependency>
-      <groupId>com.alibaba.boot</groupId>
+      <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo-spring-boot-starter</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba.boot</groupId>
-      <artifactId>dubbo-spring-boot-actuator</artifactId>
     </dependency>
 
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-netty</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.lightbend.akka</groupId>
-      <artifactId>akka-stream-alpakka-spring-web_${scala.verion}</artifactId>
     </dependency>
 
     <dependency>
