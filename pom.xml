@@ -88,6 +88,14 @@
     <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
   </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub wgx731 Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/wgx731/dr-spring</url>
+    </repository>
+  </distributionManagement>
+
   <repositories>
     <repository>
       <id>central-core</id>
