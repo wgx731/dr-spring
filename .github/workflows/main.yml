@@ -28,6 +28,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
+      run: $PWD/scripts/build-artifacts.sh && $PWD/mvnw deploy
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-      run: $PWD/scripts/build-artifacts.sh && $PWD/mvnw deploy
