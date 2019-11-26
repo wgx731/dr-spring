@@ -10,7 +10,7 @@
 
   <groupId>com.github.wgx731</groupId>
   <artifactId>dr-spring</artifactId>
-  <version>1.4.1</version>
+  <version>1.4.2</version>
   <packaging>pom</packaging>
 
   <name>Dr. Spring</name>
@@ -57,7 +57,7 @@
     <maven.version>3.6.2</maven.version>
 
     <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
-    <dr-spring.version>1.4.1</dr-spring.version>
+    <dr-spring.version>1.4.2</dr-spring.version>
 
     <assertj.version>3.14.0</assertj.version>
     <jackson.version>2.10.1</jackson.version>
