@@ -27,7 +27,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Build with Maven
       run: $PWD/scripts/build-artifacts.sh && $PWD/mvnw deploy
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
