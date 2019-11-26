@@ -2,6 +2,7 @@
 <configuration>
   <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
+  <logger name="com.github.wgx731" level="ERROR"/>
   <logger name="org.springframework" level="ERROR"/>
   <logger name="junit-quickcheck" level="ERROR"/>
 
