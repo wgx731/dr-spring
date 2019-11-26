@@ -1,7 +1,11 @@
 name: dr-spring CI CD action
 
 on:
-  [push, pull_request]:
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
     branches:
       - dev
       - master
