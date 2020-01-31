@@ -67,7 +67,7 @@
     <stax2-api.version>4.2</stax2-api.version>
 
     <jacoco.version>0.8.5</jacoco.version>
-    <checkstyle.version>8.22</checkstyle.version>
+    <checkstyle.version>8.29</checkstyle.version>
     <junit-quickcheck.version>0.9</junit-quickcheck.version>
 
     <dubbo-spring-boot.version>2.7.4.1</dubbo-spring-boot.version>
